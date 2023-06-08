@@ -1,0 +1,492 @@
+html, body{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+body{
+    display: flex;
+    flex-direction: column;
+}
+header ul{
+    margin: 0px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    list-style: none;
+    padding: 0px;
+    background-color: #e3f2fd;
+    position: relative;
+}
+header li:last-of-type{
+    position: absolute;
+    right: 20px;
+    top: -2px;
+    font-size: 125%;
+    font-weight: bold;
+}
+header li{
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+header a{
+    color: royalblue;
+    text-decoration: none;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 10px;
+}
+header a:hover{
+    color: white;
+    text-decoration: none;
+    background-color: rgb(101, 153, 231);
+}
+header .actif{
+    font-weight: bold;
+}
+main{
+    background-color: white;
+    flex-grow: 1;
+}
+footer{
+    background-color: #5784BA;
+    padding-top: 20px;
+    position: relative;
+}
+footer{
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    position: relative;
+}
+footer aside>p{
+    list-style: none;
+    font-size: 80%;
+}
+footer img{
+    width: 200px;
+    height: auto;
+}
+footer h2{
+    color: #2A4E62;
+    font-size: 75%;
+    padding: 5px;
+    text-align: right;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+footer h3{
+    font-size: 150%;
+}
+header div{
+    padding: 50px;
+    background-image: url(img/Hardis-Group.jpg);
+    background-size: cover;
+}
+h1{
+    text-align: center;
+    font-weight: bold;
+    color: #B8CBD0;
+}
+.sect section{
+    color: #3B556D;
+    margin: 20px;
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: #B6D8F2;
+    box-shadow: 0px 0px 5px black;
+}
+
+/*----------------------------------------------------------------*/
+
+#act section, #eco section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+#act section+section{
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between;
+}
+#act ul{
+    max-width: 50%;
+    list-style: none;
+    font-size: large;
+}
+#act aside{
+    width: 50%;
+    padding: 10px;
+}
+#act aside+aside{
+    border-left: 3px dotted #427CA2;
+}
+#act ul>li:first-of-type{
+    list-style: none;
+}
+#act section+section+section{
+    position: relative;
+}
+#act section+section+section>h2{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+#act section+section+section>aside:first-of-type{
+    padding-top: 60px;
+}
+#act section img{
+    width: 50%;
+    height: auto;
+}
+
+/*----------------------------------------------------------------*/
+
+#eco section:first-of-type{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    margin-left: 10%;
+    margin-right: 10%;
+    box-shadow: none;
+    padding: 15px;
+}
+#eco section:first-of-type>h2, #eco section:first-of-type>p{
+    margin-right: 20px;
+    width: 50%;
+}
+#eco section:first-of-type>img{
+    text-align: right;
+}
+#eco img{
+    height: fit-content;
+    width: auto;
+}
+#eco section{
+    margin-left: 10%;
+    margin-right: 10%;
+}
+#eco section+section>aside{
+    padding: 15px;
+    text-align: center;
+    width: 50%;
+}
+#eco aside>p:first-of-type{
+    font-size: 125%;
+}
+#eco section+section h2:first-of-type{
+    margin-left: -200px;
+}
+#eco h2+h2{
+    margin-top: 30px;
+    margin-left: -50px;
+}
+#eco h2+h2+h2{
+    margin-left: 100px;
+}
+#eco section:first-of-type>h2{
+    font-size: 125%;
+    font-weight: bold;
+}
+#eco section+section{
+    position: relative;
+}
+#eco section+section>h2{
+    position: absolute;
+    top: 15px;
+    right: 40px;
+}
+#eco section:last-of-type>aside:last-of-type{
+    margin-top: 50px;
+}
+
+/*----------------------------------------------------------------*/
+
+#acc a{
+    color: #37040E;
+    text-shadow: 0px 0px 5px #CEEFF4;
+    text-decoration: none;
+}
+#acc div{
+    text-align: center;
+    margin: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    box-shadow: 0px 0px 5px black;
+}
+#acc div:first-of-type{
+    background-image: url(img/job.jpg);
+    background-size: cover;
+    background-position: 0px 65%;
+}
+#acc div+div{
+    background-image: url(img/découvrir.jpg);
+    background-size: cover;
+    background-position: center;
+}
+#acc div+div+div{
+    background-image: url(img/ecologie.jpg);
+    background-size: cover;
+    background-position: center;
+}
+#acc div+div+div+div{
+    background-image: url(img/nousrejoindre.jpg);
+    background-size: cover;
+    background-position: bottom;
+}
+
+/*----------------------------------------------------------------*/
+
+#met ul{
+    display: flex;
+    background-color: grey;
+    list-style: none;
+    gap: 15px;
+    padding: 30px;
+    justify-content: center;
+    box-shadow: 0px 2px 2px black;
+}
+#met a{
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+}
+#met a:hover{
+    background-color: rgba(8, 165, 165, 0.507);
+    color: white;
+    border-radius: 5px;
+}
+#met section{
+    padding-top: 5px;
+}
+#met article{
+    width: 600px;
+    height: 400px;
+    background-image: url(img/dataintelligence.jpg);
+    background-size: cover;
+    background-position: center;
+    box-shadow: inset 0px 0px 3px black;
+    margin-left: auto;
+    margin-right: auto;
+    color: #FEEA5C;
+}
+#met article h2{
+    font-weight: bold;
+    padding-top: 20%;
+    -webkit-text-stroke: #2A4E62 1px;
+}
+#cloud article{
+    background-image: url(img/cloud.jpg);
+}
+#ampoule article{
+    background-image: url(img/ampoule-brainstorming.jpg);
+}
+#digital article{
+    background-image: url(img/digital-transform.jpg);
+}
+#logistique article{
+    background-image: url(img/logistique.png);
+}
+#met section{
+    text-align: center;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 10px;
+}
+#met section:last-of-type{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    padding-top: 100px;
+}
+#met section:last-of-type>h2{
+    position: absolute;
+    top: 10px;
+    left: 25%;
+    right: 25%;
+}
+#met aside{
+    width: 30%;
+    padding: 20px;
+    box-shadow: inset 20px 0px #F7F6CF, 0px 0px 5px 2px black;
+    background-color: #ffffe8;
+}
+#met aside>h3{
+    text-decoration: underline;
+}
+
+/*----------------------------------------------------------------*/
+
+#InputSearch {
+    border: none;
+    width: 98%;
+    height: 80%;
+    margin-left: 5px;
+    margin-top: 2px;
+    padding-left: 6px;
+}
+input:focus {
+    outline: none;
+}
+#DivSearch {
+    border: solid 2px #c3cfd9;
+    border-radius: 35px;
+    width: 33%;
+    height: 25px;
+    display: flex;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-right: auto;
+    margin-bottom: 100px;
+}
+#ImgLoupe {
+    margin-right: 5px;
+    height: 15px;
+    width: 15px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.DivFaq {
+    border-radius: 8px;
+    overflow: hidden;
+}
+.DivElementFaq {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    overflow: hidden;
+    border-top: solid 2px #c8d3dc;
+    border-left: solid 2px #c8d3dc;
+    border-right: solid 2px #c8d3dc;
+}
+.DivElementFaq:last-child {
+    border-bottom: solid 2px #c8d3dc;
+}
+.LabelFaqTitre {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+    font-family: "Google-Sans", "Arial Narrow Bold", "sans-serif";
+    font-size: 22px;
+    font-weight: 400;
+    color: #202124;
+
+}
+.LabelFaqTitre::after {
+    content: "❯";
+    text-align: center;
+    transition: all 0.35s;
+    margin-top: -4px;
+}
+.FaqContenu {
+    max-height: 0;
+    padding: 0 1em;
+    transition: all 0.35s;
+    color: black;
+    font-size: 14px;
+    font-family: "Google-Sans", "Arial Narrow Bold", "sans-serif";;
+}
+.CheckBoxAcordeon {
+    opacity: 0;
+    height: 0px;
+    width: 0px;
+}
+input:checked + .LabelFaqTitre::after {
+    transform: rotate(90deg);
+}
+input:checked ~ .FaqContenu {
+    max-height: 100vh;
+    padding: 1em;
+}
+.DivFormulaire {
+    background-color: #B6D8F2;
+    box-shadow: 0px 0px 5px black;
+    /*border: solid 2px #c3cfd9;*/
+    margin-left: auto;
+    margin-right: auto;
+    width: 55%;
+    height: 620px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.DivElementFormulaire {
+    margin-top: 3px;
+}
+.DivElementFormulaire > input {
+    border: solid 2px #c3cfd9;
+    display: flex;
+    flex-direction: column;
+    height: 33px;
+    width: 92%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3px;
+    padding-left: 7px;
+}
+.DivElementFormulaire > label {
+    font-family: "Google-Sans", "Arial Narrow Bold", "sans-serif";
+    margin-left: 36px;
+    margin-bottom: 3px;
+}
+.Formulaire {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.DivElementFormulaireTextArea {
+    display: flex;
+    flex-direction: column;
+}
+.DivElementFormulaireTextArea > textarea {
+    resize: none;
+    margin-left: auto;
+    margin-right: auto;
+    width: 92%;
+    border: solid 2px #c3cfd9;
+}
+.DivElementFormulaireTextArea > label {
+    font-family: "Google-Sans", "Arial Narrow Bold", "sans-serif";
+    margin-left: 37px;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+.DivElementFormulaireTextArea > textarea:focus {
+    outline: none;
+}
+.ButtonFormulaire {
+    display: flex;
+    align-self: center;
+    border: solid rgb(128,128, 128) 2px;
+    background-color: rgb(128,128, 128);
+    border-radius: 6px;
+    height: 100%;
+    width: 18%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.ButtonFormulaire > input{
+    background: none;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Google-Sans", "Arial Narrow Bold", "sans-serif";
+    font-size: 18px;
+    color: white;
+    font-weight: 400;
+}

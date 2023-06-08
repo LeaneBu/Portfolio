@@ -1,0 +1,430 @@
+A.1
+
+(a)
+
+SELECT count(Survived) AS Survivants, 323-count(Survived) AS Morts, PClass FROM PASSENGER WHERE PClass=1 AND Survived=1 GROUP BY passenger.PClass, passenger.survived;
+ survivants | morts | pclass 
+------------+-------+--------
+        200 |   123 |      1
+(1 row)
+
+
+SELECT count(Survived) AS Survivants, 323-count(Survived) AS Morts, PClass FROM PASSENGER WHERE PClass=2 AND Survived=1 GROUP BY passenger.PClass, passenger.survived;
+ survivants | morts | pclass 
+------------+-------+--------
+        119 |   204 |      2
+(1 row)
+
+SELECT count(Survived) AS Survivants, 709-count(Survived) AS Morts, PClass FROM PASSENGER WHERE PClass=3 AND Survived=1 GROUP BY passenger.PClass, passenger.survived;
+ survivants | morts | pclass 
+------------+-------+--------
+        181 |   528 |      3
+(1 row)
+
+
+BILAN => La plupart des survivants étaient en première classe, le nombre de morts est très important dans la troisième classe, conclusion la classe a influencé sur la survie du passager.
+
+(b)
+
+SELECT count(Survived) AS Survivants, 1309-count(Survived) AS Morts, Sex FROM PASSENGER WHERE Sex='male' AND Survived=1 AND Age>=12 GROUP BY  passenger.survived, passenger.sex;
+ survivants | morts | sex  
+------------+-------+------
+        109 |  1200 | male
+(1 row)
+
+SELECT count(Survived) AS Survivants, 1309-count(Survived) AS Morts, Sex FROM PASSENGER WHERE Sex='female' AND Survived=1 AND Age>=12 GROUP BY  passenger.survived, passenger.sex;
+ survivants | morts |  sex   
+------------+-------+--------
+        267 |   1042 | female
+(1 row)
+
+SELECT count(Survived) AS Survivants, 110-count(Survived) AS Morts FROM PASSENGER WHERE Age <12 AND Survived=1;
+ survivants | morts 
+------------+-------
+         51 |    59
+(1 row)
+
+QUESTION:
+* SELECT count(Survived) AS Survivants, ((SELECT count(Survived)  FROM PASSENGER WHERE Age <12 AND Survived=1) + (SELECT count(Survived) FROM PASSENGER WHERE Sex='male' AND Survived=1 AND Age>=12) + (SELECT count(Survived) FROM PASSENGER WHERE Sex='female' AND Survived=1 AND Age>=12)) AS TotSurvivants FROM PASSENGER WHERE Survived=1;
+ survivants | totsurvivants 
+------------+---------------
+        500 |           427
+(1 row)
+
+* SELECT count(Survived) AS Morts, ((SELECT count(Survived)  FROM PASSENGER WHERE Age <12 AND Survived=0) + (SELECT count(Survived) FROM PASSENGER WHERE Sex='male' AND Survived=0 AND Age>=12) + (SELECT count(Survived) FROM PASSENGER WHERE Sex='female' AND Survived=0 AND Age>=12)) AS TotMorts FROM PASSENGER WHERE Survived=0;
+ morts | totmorts 
+-------+----------
+   809 |      619
+(1 row)
+
+QUESTION BIS: 
+Il y a des passagers dont l'age n'est pas renseigné.
+
+
+
+A.2
+
+(a)
+
+SELECT count(Survived) AS Survivants, 323-count(Survived) AS Morts, PClass FROM PASSENGER WHERE PClass=1 AND Survived=1 GROUP BY passenger.PClass, passenger.survived;
+ survivants | morts | pclass 
+------------+-------+--------
+        200 |   123 |      1
+(1 row)
+
+SELECT count(Survived) AS Survivants, 323-count(Survived) AS Morts, PClass FROM PASSENGER WHERE PClass=2 AND Survived=1 GROUP BY passenger.PClass, passenger.survived;
+ survivants | morts | pclass 
+------------+-------+--------
+        119 |   204 |      2
+
+SELECT count(Survived) AS Survivants, 709-count(Survived) AS Morts, PClass FROM PASSENGER WHERE PClass=3 AND Survived=1 GROUP BY passenger.PClass, passenger.survived;
+ survivants | morts | pclass 
+------------+-------+--------
+        181 |   528 |      3
+
+(b)
+
+SELECT count(Survived) AS Survivants, 1309-count(Survived) AS Morts, Sex FROM PASSENGER WHERE Sex='male' AND Survived=1 AND Age>=12 GROUP BY  passenger.survived, passenger.sex;
+ survivants | morts | sex  
+------------+-------+------
+        132 |  1177 | male
+(1 row)
+
+SELECT count(Survived) AS Survivants, 1309-count(Survived) AS Morts, Sex FROM PASSENGER WHERE Sex='female' AND Survived=1 AND Age>=12 GROUP BY  passenger.survived, passenger.sex;
+ survivants | morts |  sex   
+------------+-------+--------
+        314 |   995 | female
+(1 row)
+
+SELECT count(Survived) AS Survivants, 110-count(Survived) AS Morts FROM PASSENGER WHERE Age <12 AND Survived=1;
+ survivants | morts 
+------------+-------
+         54 |    56
+(1 row)
+
+SELECT count(Survived) AS Survivants, ((SELECT count(Survived)  FROM PASSENGER WHERE Age <12 AND Survived=1) + (SELECT count(Survived) FROM PASSENGER WHERE Sex='male' AND Survived=1 AND Age>=12) + (SELECT count(Survived) FROM PASSENGER WHERE Sex='female' AND Survived=1 AND Age>=12)) AS TotSurvivants FROM PASSENGER WHERE Survived=1;
+ survivants | totsurvivants 
+------------+---------------
+        500 |           500
+(1 row)
+
+SELECT count(Survived) AS Morts, ((SELECT count(Survived)  FROM PASSENGER WHERE Age <12 AND Survived=0) + (SELECT count(Survived) FROM PASSENGER WHERE Sex='male' AND Survived=0 AND Age>=12) + (SELECT count(Survived) FROM PASSENGER WHERE Sex='female' AND Survived=0 AND Age>=12)) AS TotMorts FROM PASSENGER WHERE Survived=0;
+ morts | totmorts 
+-------+----------
+   809 |      809
+(1 row)
+
+
+
+
+
+
+A3 Taux de survivants dans les différentes catégories de passagers selon leur classe
+
+
+
+<------------------------------------------------------------------------------------>
+
+Taux de survivants par classe, toutes catégories confondues (enfants, femmes ou hommes)
+
+Class1
+
+SELECT Count(PClass)*100/323 AS TauxPassengerClass1,Survived FROM PASSENGER WHERE PClass = 1 AND Survived = 1 GROUP BY Survived;
+
+ tauxpassengerclass1 | survived 
+---------------------+----------
+                  61 |        1
+
+
+Class2
+
+SELECT Count(PClass)*100/277 AS TauxPassengerClass2,Survived FROM PASSENGER WHERE PClass = 2 AND Survived = 1 GROUP BY Survived ;
+
+ tauxpassengerclass2 | survived 
+---------------------+----------
+                  42 |        1
+(1 row)
+
+
+Class3
+
+SELECT Count(PClass)*100/709 AS TauxPassengerClass3,Survived FROM PASSENGER WHERE PClass = 3 AND Survived = 1 GROUP BY Survived;
+
+ tauxpassengerclass3 | survived 
+---------------------+----------
+                  25 |        1
+(1 row)
+
+<------------------------------------------------------------------------------------>
+Taux de survivants par classe dans la catégorie enfants
+
+Class1
+
+SELECT count(Age)*100/5 AS Enfant, PClass, Survived  FROM PASSENGER WHERE Age <=12 AND PClass = 1 AND Survived = 1 GROUP BY Survived, PClass ;
+
+ enfant | pclass | survived 
+--------+--------+----------
+     80 |      1 |        1
+(1 row)
+
+Class2
+
+SELECT count(Age)*100/24 AS Enfant, PClass, Survived  FROM PASSENGER WHERE Age <=12 AND PClass = 2 AND Survived = 1 GROUP BY Survived, PClass ;
+
+ enfant | pclass | survived 
+--------+--------+---------- 
+    100 |      2 |        1
+(1 row)
+
+Class3
+
+SELECT count(Age)*100/81 AS Enfant, PClass, Survived  FROM PASSENGER WHERE Age <=12 AND PClass = 3 AND Survived = 1 GROUP BY Survived, PClass ;
+
+ enfant | pclass | survived 
+--------+--------+----------
+     35 |      3 |        1
+(1 row)
+
+<----------------------------------------------------------------------------------------->
+Taux de survivants par classe dans la catégorie femmes
+
+Class1
+
+SELECT count(Age)*100/143 AS femme, PClass, Sex, Survived  FROM PASSENGER WHERE PClass = 1 AND Age >12 AND Sex ='female' AND Survived = 1 GROUP BY PClass, Sex, Survived;
+
+ femme | pclass |  sex   | survived 
+-------+--------+--------+----------
+    97 |      1 | female |        1
+(1 row)
+
+Class2
+
+SELECT count(Age)*100/5 AS Enfant, PClass, Survived  FROM PASSENGER WHERE Age <=12 AND PClass = 1 AND Survived = 1 GROUP BY Survived, PClass ;
+
+ enfant | pclass |  sex   | survived 
+-------+--------+--------+----------
+    87 |      2 | female |        1
+(1 row)
+
+CLass3
+
+SELECT count(Age)*100/180 AS femme, PClass, Sex, Survived  FROM PASSENGER WHERE PClass = 3 AND Age >12 AND Sex ='female' AND Survived = 1 GROUP BY PClass, Sex, Survived;
+
+ femme | pclass |  sex   | survived 
+-------+--------+--------+----------
+    51 |      3 | female |        1
+(1 row)
+-----------------------------------------------------------------------------------------
+D) Taux de survivants par classe dans la catégorie hommes
+
+Class1
+
+SELECT count(Age)*100/175 AS male, PClass, Sex, Survived  FROM PASSENGER WHERE PClass = 1 AND Age >12 AND Sex ='male' AND Survived = 1 GROUP BY PClass, Sex, Survived;
+
+male | pclass | sex  | survived 
+------+--------+------+----------
+   32 |      1 | male |        1
+(1 row)
+
+Class2
+
+SELECT count(Age)*100/160 AS male, PClass, Sex, Survived  FROM PASSENGER WHERE PClass = 2 AND Age >12 AND Sex ='male' AND Survived = 1 GROUP BY PClass, Sex, Survived;
+
+
+ male | pclass | sex  | survived 
+------+--------+------+----------
+    8 |      2 | male |        1
+(1 row)
+
+Class3
+
+
+SELECT count(Age)*100/448 AS male, PClass, Sex, Survived  FROM PASSENGER WHERE PClass = 3 AND Age >12 AND Sex ='male' AND Survived = 1 GROUP BY PClass, Sex, Survived;
+
+ male | pclass | sex  | survived 
+------+--------+------+----------
+   13 |      3 | male |        1
+(1 row)
+
+<---------------------------------------------------------------------------------------->
+
+
+A4
+SELECT count(*) AS rescapés, (SELECT count(*) FROM PASSENGER WHERE Age<12) AS nbEnfants FROM PASSENGER, RESCUE WHERE PASSENGER.PassengerID=RESCUE.PassengerID AND Age<12;
+ rescapés | nbenfants 
+----------+-----------
+       53 |       105
+(1 row)
+
+SELECT count(*) AS rescapés, (SELECT count(*) FROM PASSENGER WHERE Age<12) AS nbEnfants, (SELECT count(Survived) FROM PASSENGER WHERE Age<12 AND Survived=1) AS Survivants FROM PASSENGER, RESCUE WHERE PASSENGER.PassengerID=RESCUE.PassengerID AND Age<12;
+ rescapés | nbenfants | survivants 
+----------+-----------+------------
+       53 |       105 |         54
+(1 row)
+
+
+Class 1:
+SELECT count(*) AS rescapés, (SELECT count(*) FROM PASSENGER WHERE Age<12) AS nbEnfants, (SELECT count(Survived) FROM PASSENGER WHERE Age<12 AND Survived=1) AS Survivants FROM PASSENGER, RESCUE WHERE PASSENGER.PassengerID=RESCUE.PassengerID AND Age<12 AND PClass=1;
+ rescapés | nbenfants | survivants 
+----------+-----------+------------
+        4 |       5 |         4
+(1 row)
+
+Class 2:
+SELECT count(*) AS rescapés, (SELECT count(*) FROM PASSENGER WHERE Age<12) AS nbEnfants, (SELECT count(Survived) FROM PASSENGER WHERE Age<12 AND Survived=1) AS Survivants FROM PASSENGER, RESCUE WHERE PASSENGER.PassengerID=RESCUE.PassengerID AND Age<12 AND PClass=2;
+ rescapés | nbenfants | survivants 
+----------+-----------+------------
+       22 |       22 |         22
+(1 row)
+
+Class 3:
+SELECT count(*) AS rescapés, (SELECT count(*) FROM PASSENGER WHERE Age<12) AS nbEnfants, (SELECT count(Survived) FROM PASSENGER WHERE Age<12 AND Survived=1) AS Survivants FROM PASSENGER, RESCUE WHERE PASSENGER.PassengerID=RESCUE.PassengerID AND Age<12 AND PClass=3;
+ rescapés | nbenfants | survivants 
+----------+-----------+------------
+       27 |       78 |         28
+(1 row)
+
+SELECT count(*)*100/1309 AS TauxRescapés FROM PASSENGER, RESCUE WHERE PASSENGER.PassengerID=RESCUE.PassengerID;
+ tauxrescapés 
+--------------
+           37
+(1 row)
+
+
+
+ENFANTS
+SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Age < 12;
+ 
+count 
+-------
+    53
+(1 row)
+
+
+HOMMES
+SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Sex ='male';
+
+ count 
+-------
+   172
+(1 row)
+
+
+
+FEMMES
+SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Sex ='female';
+
+ count 
+-------
+   318
+
+
+f)
+ENFANTS
+SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Age < 12 And Survived = 1;
+
+ count 
+-------
+    53
+(1 row)
+
+
+HOMMES
+SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Sex ='male' AND Survived = 1;
+ count 
+-------
+   157
+(1 row)
+
+FEMMES
+SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Sex ='female' AND Survived = 1;
+ count 
+-------
+   316
+(1 row)
+
+
+CLASS1
+
+ENFANTS
+SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Age < 12 And Survived = 1 AND PClass = 1;
+
+ count 
+-------
+     4
+(1 row)
+
+HOMMES
+SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Sex ='male' AND Survived = 1 AND PClass = 1;
+
+ count 
+-------
+    60
+(1 row)
+
+FEMMES
+SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Sex ='female' AND Survived = 1 AND PClass = 1;
+
+ count 
+-------
+   135
+(1 row)
+
+
+
+CLASS2
+
+ENFANTS
+ SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Age < 12  AND Survived = 1 AND PClass = 2;
+ 
+ count 
+-------
+    22
+(1 row)
+
+HOMMES
+ SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Sex='male'  AND Survived = 1 AND PClass = 2;
+ 
+ count 
+-------
+    25
+(1 row)
+
+FEMMES
+ SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Sex='female'  AND Survived = 1 AND PClass = 2;
+ 
+ count 
+-------
+    86
+(1 row)
+
+
+
+
+CLASS3
+
+ENFANTS
+SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Age <12  AND Survived = 1 AND PClass = 3;
+ count 
+-------
+    27
+(1 row)
+
+HOMMES
+SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Sex='male' AND Survived = 1 AND PClass = 3;
+ count 
+-------
+    72
+(1 row)
+
+FEMMES
+SELECT count(*) FROM PASSENGER A, RESCUE B WHERE A.PassengerID = B.PassengerID AND Sex='female' AND Survived = 1 AND PClass = 3;
+ count 
+-------
+    95
+(1 row)
+
+
+
+
+
