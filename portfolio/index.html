@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Mon Portfolio</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="presentation.html">Présentation</a></li>
+                <li><a href="realisations.html">Réalisations</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Rechercher...">
+        </div>
+    </header>
+    <main>
+        <section id="accueil">
+            <h2>Bienvenue sur mon portfolio</h2>
+            <div class="cards">
+                <div class="card">
+                    <img src="img/placeholder/quijesuis.jpg" alt="Présentation" class="card-img">
+                    <div class="card-content">
+                        <h3>Présentation</h3>
+                        <p>Découvrez qui je suis et mon parcours.</p>
+                    </div>
+                    <button onclick="window.location.href='presentation.html'">En savoir plus</button>
+                </div>
+                <div class="card">
+                    <img src="img/placeholder/projet.jpeg" alt="Réalisations" class="card-img">
+                    <div class="card-content">
+                        <h3>Réalisations</h3>
+                        <p>Explorez mes projets et créations.</p>
+                    </div>
+                    <button onclick="window.location.href='realisations.html'">Voir les projets</button>
+                </div>
+                <div class="card">
+                    <img src="img/placeholder/contact.png" alt="Contact" class="card-img">
+                    <div class="card-content">
+                        <h3>Contact</h3>
+                        <p>Contactez-moi pour collaborer ou discuter.</p>
+                    </div>
+                    <button onclick="window.location.href='contact.html'">Contactez-moi</button>
+                </div>
+                <div id="search-results-message" class="no-results">
+                    Aucune page de ce portfolio ne correspond à votre recherche.
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Mon Portfolio. Tous droits réservés.</p>
+    </footer>
+    <script src="js/script_accueil.js"></script>
+</body>
+</html>
