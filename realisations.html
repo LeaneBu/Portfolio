@@ -194,9 +194,36 @@
                         <p>Gestionnaire de héros en Angular et Firebase</p>
                         <a href="doc/BUT_3/ToH/buisslea-ToH2024.zip" class="project-button" download>Projet (.zip)</a>
                     </article>
+                    <article class="project">
+                        <div class="carousel">
+                            <div class="carousel-images">
+                                <img src="img/projets/BUT_3/Chess_pipelines/gitlab_ci.png" alt="Image 1">
+                                <img src="img/projets/BUT_3/Chess_pipelines/pipelines.png" alt="Image 2">
+                                <img src="img/projets/BUT_3/Chess_pipelines/ex_pipeline.png" alt="Image 3">
+                            </div>
+                            <button class="carousel-button prev"></button>
+                            <button class="carousel-button next"></button>
+                        </div>
+                        <h2>Pipelines CI/CD</h2>
+                        <p>Les pipelines avec Gitlab CI</p>
+                        <button class="details-toggle">Plus de détails</button>
+                        <div class="project-details hidden">
+                            <p>
+                                Ce projet met en place des pipelines CI/CD avec GitLab pour automatiser les tests, les builds
+                                et le déploiement de l'application d'échecs. Il explore des environnements de test, des runners Docker,
+                                des étapes conditionnelles, etc.
+                            </p>
+                        </div>
+                        <a href="doc/BUT_3/ToH/buisslea-ToH2024.zip" class="project-button" download>Projet (.zip)</a>
+                    </article>
                     <!-- etc -->
                 </div>
             </section>
+            <!-- Modal pour afficher les images en grand -->
+                    <div id="image-modal" class="image-modal hidden">
+                        <span class="close-modal">&times;</span>
+                        <img id="modal-image" src="" alt="Image agrandie">
+                    </div>
     
             <!-- projets personnels -->
             <section id="personal-projects">

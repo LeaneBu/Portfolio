@@ -1,6 +1,7 @@
 // script.js
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    // Carousel
     const carousels = document.querySelectorAll('.carousel');
 
     carousels.forEach(carousel => {
@@ -25,10 +26,49 @@ document.addEventListener('DOMContentLoaded', function() {
             updateCarousel();
         });
 
-        // Initial setup
         updateCarousel();
     });
+
+    // Popup image (à partir de la 2e image)
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const closeModal = modal.querySelector('.close-modal');
+
+    document.querySelectorAll('.carousel .carousel-images').forEach(imageContainer => {
+        const images = imageContainer.querySelectorAll('img');
+        images.forEach((img, index) => {
+            if (index > 0) {
+                img.style.cursor = 'zoom-in';
+                img.addEventListener('click', () => {
+                    modalImage.src = img.src;
+                    modal.classList.remove('hidden');
+                });
+            }
+        });
+    });
+
+    closeModal.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        modalImage.src = '';
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.add('hidden');
+            modalImage.src = '';
+        }
+    });
+
+    // Toggle détails
+    document.querySelectorAll('.details-toggle').forEach(button => {
+        button.addEventListener('click', () => {
+            const details = button.nextElementSibling;
+            details.classList.toggle('hidden');
+            button.textContent = details.classList.contains('hidden') ? 'Plus de détails' : 'Moins de détails';
+        });
+    });
 });
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('search');
