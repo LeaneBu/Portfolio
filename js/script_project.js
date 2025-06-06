@@ -1,7 +1,5 @@
-// script.js
-
 document.addEventListener('DOMContentLoaded', function () {
-    // Carousel
+    // --- Carousel
     const carousels = document.querySelectorAll('.carousel');
 
     carousels.forEach(carousel => {
@@ -29,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
         updateCarousel();
     });
 
-    // Popup image (à partir de la 2e image)
+    // --- Image modal (zoom)
     const modal = document.getElementById('image-modal');
     const modalImage = document.getElementById('modal-image');
     const closeModal = modal.querySelector('.close-modal');
@@ -59,66 +57,78 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Toggle détails
-    document.querySelectorAll('.details-toggle').forEach(button => {
-        button.addEventListener('click', () => {
-            const details = button.nextElementSibling;
-            details.classList.toggle('hidden');
-            button.textContent = details.classList.contains('hidden') ? 'Plus de détails' : 'Moins de détails';
-        });
-    });
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
+    // --- Recherche
     const searchInput = document.getElementById('search');
     const searchResultsMessage = document.getElementById('search-results-message');
     const projects = document.querySelectorAll('.project');
     const projectSections = document.querySelectorAll('#realisations section');
 
-    searchInput.addEventListener('input', function() {
+    searchInput?.addEventListener('input', function () {
         const searchText = searchInput.value.toLowerCase();
         let hasVisibleProject = false;
 
         projects.forEach(project => {
             const projectTitle = project.querySelector('h2').textContent.toLowerCase();
             const projectDescription = project.querySelector('p').textContent.toLowerCase();
-            const projectYear = project.closest('section').querySelector('h1').textContent.toLowerCase();
+            const projectYear = project.closest('section')?.querySelector('h1')?.textContent.toLowerCase() || '';
 
             if (projectTitle.includes(searchText) || projectDescription.includes(searchText) || projectYear.includes(searchText)) {
-                if (project.classList.contains('hidden')) {
-                    project.classList.remove('hidden');
-                    project.offsetHeight; // Trigger reflow to restart the transition
-                }
-                project.style.display = 'flex'; // Assure que le projet est affiché
+                project.classList.remove('hidden');
+                project.style.display = 'flex';
                 hasVisibleProject = true;
             } else {
-                if (!project.classList.contains('hidden')) {
-                    project.style.display = 'flex'; // Assure que le projet est affiché avant la transition
-                    project.classList.add('hidden');
-                    project.addEventListener('transitionend', function handler() {
-                        project.style.display = 'none'; // Cache le projet après la fin de la transition
-                        project.removeEventListener('transitionend', handler);
-                    });
-                }
+                project.classList.add('hidden');
+                project.addEventListener('transitionend', function handler() {
+                    project.style.display = 'none';
+                    project.removeEventListener('transitionend', handler);
+                });
             }
         });
 
-        // Cache les sections sans projets visibles
+        // Masquer sections sans projets visibles
         projectSections.forEach(section => {
             const visibleProjects = section.querySelectorAll('.project:not(.hidden)');
-            if (visibleProjects.length === 0) {
-                section.style.display = 'none';
-            } else {
-                section.style.display = 'block';
-            }
+            section.style.display = visibleProjects.length === 0 ? 'none' : 'block';
         });
 
-        // Affiche ou cache le message de résultats en fonction des résultats de la recherche
+        // Message résultat
         if (hasVisibleProject) {
             searchResultsMessage.classList.remove('show');
         } else {
             searchResultsMessage.classList.add('show');
         }
     });
+
+    // Modale projet
+    const projectModal = document.getElementById('project-modal');
+    const projectModalText = document.getElementById('modal-project-text');
+    const closeProjectModal = projectModal.querySelector('.close-modal');
+
+    // On cible tous les boutons "plus de détails"
+    document.querySelectorAll('.details-toggle').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const project = btn.closest('.project');
+            const details = project.querySelector('.project-details');
+
+            // Injecte le contenu dans la modale
+            projectModalText.innerHTML = details.innerHTML;
+
+            // Affiche la modale
+            projectModal.classList.remove('hidden');
+        });
+    });
+
+    // Fermer la modale (X ou clic hors modale)
+    closeProjectModal.addEventListener('click', () => {
+        projectModal.classList.add('hidden');
+        projectModalText.innerHTML = '';
+    });
+
+    projectModal.addEventListener('click', (e) => {
+        if (e.target === projectModal) {
+            projectModal.classList.add('hidden');
+            projectModalText.innerHTML = '';
+        }
+    });
+
 });

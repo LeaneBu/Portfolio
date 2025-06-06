@@ -468,9 +468,9 @@ main h1 {
 }
 
 .carousel-images img {
-    width: 300px; /* Fixer la largeur de chaque image */
-    height: 330px; /* Fixer la hauteur de chaque image */
-    object-fit: contain; /* Couper l'image pour qu'elle remplisse le conteneur */
+    width: 300px; 
+    height: 250px;
+    object-fit: contain; 
     flex-shrink: 0;
 }
 
@@ -478,16 +478,16 @@ main h1 {
     position: absolute;
     top: 55%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.055); /* Couleur de fond légèrement opaque */
+    background-color: rgba(0, 0, 0, 0.055);
     color: white;
     border: none;
     border-radius: 100%;
-    width: 40px; /* Taille des boutons */
-    height: 40px; /* Taille des boutons */
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px; /* Taille des flèches */
+    font-size: 20px;
     cursor: pointer;
     z-index: 1;
 }
@@ -675,7 +675,7 @@ input, textarea {
     align-self: center;
 }
 
-button {
+.form-button {
     background-color: #a1ffd6b6;
     color: #889998;
     border: none;
@@ -687,12 +687,12 @@ button {
     align-self: center;
 }
 
-button:hover {
+.form-button:hover {
     background-color: #8CDECC;
     color: #ffffff;
 }
 
-button:focus {
+.form-button:focus {
     outline: none;
 }
 
@@ -730,26 +730,63 @@ button:focus {
     display: none !important;
 }
 
-.project-details {
-    margin-top: 10px;
-    font-size: 0.95em;
-    animation: fadeIn 0.3s ease-in-out;
+.modal {
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .details-toggle {
-    margin-top: 8px;
-    cursor: pointer;
-    background-color: #eee;
+    width: 1.5em;
+    height: 1.5em;
+    background: none;
     border: none;
-    padding: 6px 10px;
-    border-radius: 5px;
-    font-size: 0.9em;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #33323244;
+    transition: color 0.2s ease, transform 0.2s ease;
+    margin-left: 45%;
+  }
+  
+  .details-toggle:hover {
+    color: #4CAF50;
+    transform: scale(1.1);
+  }
+  
 
 
 /* Footer styles */
