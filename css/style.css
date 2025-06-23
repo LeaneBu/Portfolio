@@ -330,41 +330,76 @@ nav ul li a:hover {
     font-weight: bold;
 }
 
-.competence-list {
+/* Styles pour l'article info (badges ronds 80x80) */
+article.info .competence-list {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
-    flex-wrap: wrap; /* Permet à la liste de se répartir sur plusieurs lignes */
+    flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
 }
 
-.competence-list li {
+article.info .competence-list li {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80px; /* Taille des icônes */
-    height: 80px; /* Taille des icônes */
-    /* Flex item settings */
+    width: 80px;
+    height: 80px; 
 }
 
-.competence-icon {
-    font-size: 1em; /* Taille du texte */
-    width: 80px; /* Taille des icônes */
-    height: 80px; /* Taille des icônes */
+article.info .competence-icon {
+    font-size: 1em;
+    width: 80px; 
+    height: 80px; 
     display: flex;
-    align-items: center; /* Centre verticalement */
-    justify-content: center; /* Centre horizontalement */
-    color: #333; /* Couleur du texte */
-    border-radius: 50%; /* Forme ronde */
+    align-items: center;
+    justify-content: center; 
+    color: #333; 
+    border-radius: 50%; 
     text-align: center;
     line-height: 1.2;
     font-weight: bold;
-    background-color: #e0e0e0; /* Couleur de fond par défaut */
-    padding: 10px; /* Ajoute un espace autour du texte */
-    box-sizing: border-box; /* Inclut le padding dans les dimensions de l'élément */
+    background-color: #e0e0e0;
+    padding: 10px;
+    box-sizing: border-box;
 }
+
+article.softskills .competence-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* centre les badges sur chaque ligne */
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  article.softskills .competence-list li {
+    flex: 0 0 calc((100% / 3) - 13.33px); /* 3 colonnes avec gaps */
+    list-style: none;
+    display: flex;
+    justify-content: center; /* centre le contenu dans le li */
+  }
+  
+  article.softskills .competence-icon {
+    width: 100%;
+    min-height: 60px;
+    max-width: 280px;
+    border-radius: 12px;
+    background-color: #e0e0e0;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+    text-align: center;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
 
 
 /* Réalisations Page */
