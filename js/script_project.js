@@ -102,9 +102,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Masquer les sections vides
         projectSections.forEach(section => {
-            const visibleProjects = section.querySelectorAll('.project:not(.hidden)');
+            const visibleProjects = Array.from(section.querySelectorAll('.project')).filter(p => p.style.display !== 'none');
             section.style.display = visibleProjects.length === 0 ? 'none' : 'block';
         });
+
 
         // Message résultat
         if (hasVisibleProject) {
