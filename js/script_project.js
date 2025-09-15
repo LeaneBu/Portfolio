@@ -65,6 +65,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     searchInput?.addEventListener('input', function () {
         const searchText = searchInput.value.toLowerCase();
+
+        if (!searchText) {
+            // Réinitialiser tous les projets
+            projects.forEach(project => {
+                project.classList.remove('hidden');
+                project.style.display = 'flex';
+            });
+
+            // Réafficher toutes les sections
+            projectSections.forEach(section => {
+                section.style.display = 'block';
+            });
+
+            // Cacher le message "aucun projet"
+            searchResultsMessage.classList.remove('show');
+            return;
+        }
+
         let hasVisibleProject = false;
 
         projects.forEach(project => {
@@ -85,19 +103,18 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Masquer sections sans projets visibles
         projectSections.forEach(section => {
             const visibleProjects = section.querySelectorAll('.project:not(.hidden)');
             section.style.display = visibleProjects.length === 0 ? 'none' : 'block';
         });
 
-        // Message résultat
         if (hasVisibleProject) {
             searchResultsMessage.classList.remove('show');
         } else {
             searchResultsMessage.classList.add('show');
         }
     });
+
 
     // Modale projet
     const projectModal = document.getElementById('project-modal');
