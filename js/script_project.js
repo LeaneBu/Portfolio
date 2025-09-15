@@ -96,24 +96,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 hasVisibleProject = true;
             } else {
                 project.classList.add('hidden');
-                project.addEventListener('transitionend', function handler() {
-                    project.style.display = 'none';
-                    project.removeEventListener('transitionend', handler);
-                });
+                project.style.display = 'none'; // Ajout direct, sans transitionend
             }
         });
 
+        // Masquer les sections vides
         projectSections.forEach(section => {
             const visibleProjects = section.querySelectorAll('.project:not(.hidden)');
             section.style.display = visibleProjects.length === 0 ? 'none' : 'block';
         });
 
+        // Message résultat
         if (hasVisibleProject) {
             searchResultsMessage.classList.remove('show');
         } else {
             searchResultsMessage.classList.add('show');
         }
     });
+
 
 
     // Modale projet
