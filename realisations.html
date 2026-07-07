@@ -652,8 +652,45 @@
             
     
             <!-- projets personnels -->
+
             <section id="personal-projects">
                 <h1>Projets Personnels</h1>
+                <div class="project-list">
+                        <article class="project">
+                            <div class="carousel">
+                                <div class="carousel-images">
+                                    <img src="img/projets/BUT_1/SAE1.056/SAE1_html-css.jpg" alt="Image 1">
+                                    <img src="img/projets/BUT_1/SAE1.056/SAE1_hardis.jpg" alt="Image 2">
+                                    <img src="img/projets/BUT_1/SAE1.056/SAE1_site.png" alt="Image 3">
+                                </div>
+                                <button class="carousel-button prev"></button>
+                                <button class="carousel-button next"></button>
+                            </div>
+                            <h2>Site web</h2>
+                            <p>Création d'un site web, étude des besoins et contexte.</p>
+                            <button class="details-toggle" aria-label="Afficher les détails">
+                                <i class="fa-solid fa-circle-plus"></i>
+                            </button>                          
+                            <div class="project-details hidden">
+                                <p>
+                                    <strong>Création d'un site web, étude des besoins et contexte :</strong><br>
+                                    Dans ce projet nous avons du faire l'analyse des besoins fictifs de l'entreprise Hardis Group située à Grenoble. Le but était de développer un 
+                                    site internet présentant l'entreprise, en mettant en avant un l'évalutation écologie du site officiel de Hardis.
+                                </p>
+                                <p>
+                                    Compétences: <br>
+                                    <ul>
+                                        <li>Création de site en HTML/CSS</li>
+                                        <li>Gestion de projet</li>
+                                        <li>Travail en équipe, groupe de 4</li>
+                                        <li>Analyse d'éco-développement</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <a href="doc/BUT_1/SAE1.056/SAE1.05-06.zip" class="project-button" download>Projet (.zip)</a>
+                        </article>
+                        <!-- etc -->
+                </div>
                 <div class="personal-project">
                     <h2>Chantier en Cours 🚧</h2>
                     <p>
@@ -664,6 +701,20 @@
                     <p><em>Restez à l'affût de cette section pour découvrir les dernières mises à jour et surprises !</em></p>
                 </div>
             </section>
+            <!-- modal image -->
+            <div id="image-modal" class="image-modal hidden">
+                <span class="close-modal">&times;</span>
+                <img id="modal-image" src="" alt="Img agrandie">
+            </div>
+            <!-- modal détails -->
+            <div id="project-modal" class="modal hidden">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <div id="modal-project-text">
+                        <!-- détail injecté -->
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
