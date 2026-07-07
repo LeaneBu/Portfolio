@@ -70,6 +70,14 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener("click", (e) => {
             e.preventDefault();
 
+            //log
+            console.log(button.dataset.video);
+
+            modalVideoSource.src = button.dataset.video;
+            modalVideo.load();
+
+            console.log(modalVideo);
+
             // Cacher l'image
             modalImage.classList.add("hidden");
             modalImage.src = "";
