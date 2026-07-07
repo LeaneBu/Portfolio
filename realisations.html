@@ -773,7 +773,6 @@
                             <div class="carousel">
                                 <div class="carousel-images">
                                     <img src="img/projets/Projet_perso/Frog_animation/explosing-frog.mp4" alt="Image 1">
-                                    <video controls preload="metadata"><source src="img/projets/Projet_perso/Frog_animation/explosing-frog.mp4" type="video/mp4">Votre navigateur ne supporte pas la vidéo.</video>
                                     <img src="img/projets/Projet_perso/Frog_animation/logo-blender" alt="Image 3">
                                 </div>
                                 <button class="carousel-button prev"></button>
@@ -797,7 +796,11 @@
                                     </ul>
                                 </p>
                             </div>
-                            <a href="#" class="project-button"> Vidéo dans le carrousel d'image ci-dessus </a>
+                            <a href="#"
+                                class="project-button open-video"
+                                data-video="img/projets/Projet_perso/Frog_animation/explosing-frog.mp4">
+                                Voir la vidéo
+                            </a>                        
                         </article>
                         <!-- etc -->
                 </div>
@@ -815,6 +818,9 @@
             <div id="image-modal" class="image-modal hidden">
                 <span class="close-modal">&times;</span>
                 <img id="modal-image" src="" alt="Img agrandie">
+                <video id="modal-video" controls class="hidden">
+                    <source id="modal-video-source" src="" type="video/mp4">
+                </video>
             </div>
             <!-- modal détails -->
             <div id="project-modal" class="modal hidden">

@@ -27,35 +27,104 @@ document.addEventListener('DOMContentLoaded', function () {
         updateCarousel();
     });
 
-    // --- Image modal (zoom)
+
+    // --- Modal image + vidéo
     const modal = document.getElementById('image-modal');
     const modalImage = document.getElementById('modal-image');
     const closeModal = modal.querySelector('.close-modal');
 
+    const modalVideo = document.getElementById("modal-video");
+    const modalVideoSource = document.getElementById("modal-video-source");
+
+
+    // --- Image modal (zoom)
     document.querySelectorAll('.carousel .carousel-images').forEach(imageContainer => {
         const images = imageContainer.querySelectorAll('img');
+
         images.forEach((img, index) => {
             if (index > 0) {
                 img.style.cursor = 'zoom-in';
+
                 img.addEventListener('click', () => {
+
+                    // Cacher la vidéo si elle était ouverte
+                    modalVideo.pause();
+                    modalVideo.currentTime = 0;
+                    modalVideo.classList.add("hidden");
+
+                    // Afficher l'image
+                    modalImage.classList.remove("hidden");
                     modalImage.src = img.src;
+
+                    // Ouvrir la modal
                     modal.classList.remove('hidden');
                 });
             }
         });
     });
 
-    closeModal.addEventListener('click', () => {
-        modal.classList.add('hidden');
-        modalImage.src = '';
+
+    // --- Vidéo modal
+    document.querySelectorAll(".open-video").forEach(button => {
+
+        button.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            // Cacher l'image
+            modalImage.classList.add("hidden");
+            modalImage.src = "";
+
+            // Charger la vidéo
+            modalVideoSource.src = button.dataset.video;
+            modalVideo.load();
+
+            // Afficher la vidéo
+            modalVideo.classList.remove("hidden");
+
+            // Ouvrir la modal
+            modal.classList.remove("hidden");
+        });
+
     });
 
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.add('hidden');
-            modalImage.src = '';
-        }
+
+    // --- Fermeture modal (bouton X)
+    closeModal.addEventListener('click', () => {
+
+        modal.classList.add('hidden');
+
+        // Reset image
+        modalImage.src = "";
+        modalImage.classList.remove("hidden");
+
+        // Reset vidéo
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+        modalVideo.classList.add("hidden");
+        modalVideoSource.src = "";
     });
+
+
+    // --- Fermeture modal (clic en dehors)
+    modal.addEventListener('click', (e) => {
+
+        if (e.target === modal) {
+
+            modal.classList.add('hidden');
+
+            // Reset image
+            modalImage.src = "";
+            modalImage.classList.remove("hidden");
+
+            // Reset vidéo
+            modalVideo.pause();
+            modalVideo.currentTime = 0;
+            modalVideo.classList.add("hidden");
+            modalVideoSource.src = "";
+        }
+
+    });
+
 
     // --- Recherche
     const searchInput = document.getElementById('search');
