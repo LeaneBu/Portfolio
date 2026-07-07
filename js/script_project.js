@@ -63,20 +63,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    console.log("Partie vidéo chargée");
     // --- Vidéo modal
     document.querySelectorAll(".open-video").forEach(button => {
 
         button.addEventListener("click", (e) => {
             e.preventDefault();
-
-            //log
-            console.log(button.dataset.video);
-
-            modalVideoSource.src = button.dataset.video;
-            modalVideo.load();
-
-            console.log(modalVideo);
 
             // Cacher l'image
             modalImage.classList.add("hidden");
