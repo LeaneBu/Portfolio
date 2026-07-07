@@ -762,6 +762,12 @@ input, textarea {
     cursor: pointer;
 }
 
+#modal-video {
+    width: 70vw;
+    max-height: 80vh;
+    border-radius: 10px;
+}
+
 .hidden {
     display: none !important;
 }

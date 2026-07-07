@@ -86,6 +86,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
+    document.querySelectorAll(".video-thumbnail").forEach(img => {
+
+        img.addEventListener("click", () => {
+
+            modalVideoSource.src = img.dataset.video;
+            modalVideo.load();
+
+            modal.classList.remove("hidden");
+
+        });
+
+    });
+
 
     // --- Fermeture modal (bouton X)
     closeModal.addEventListener('click', () => {
