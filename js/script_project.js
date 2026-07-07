@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-
+    console.log("Partie vidéo chargée");
     // --- Vidéo modal
     document.querySelectorAll(".open-video").forEach(button => {
 
