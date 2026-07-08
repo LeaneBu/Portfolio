@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // --- Vidéo modal
+    // --- Vidéo modal en cliquant sur un bouton
     document.querySelectorAll(".open-video").forEach(button => {
 
         button.addEventListener("click", (e) => {
@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
+    // --- Vidéo modal intégré dans le caroussel avec miniature
     document.querySelectorAll(".video-thumbnail").forEach(img => {
 
         img.addEventListener("click", () => {
@@ -99,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             modalVideo.src = img.dataset.video;
             modalVideo.load();
-            modalVideo.play();
 
             modal.classList.remove("hidden");
 
