@@ -90,8 +90,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         img.addEventListener("click", () => {
 
-            modalVideoSource.src = img.dataset.video;
+            // cacher l'image
+            modalImage.classList.add("hidden");
+            modalImage.src = "";
+
+            // afficher la vidéo
+            modalVideo.classList.remove("hidden");
+
+            modalVideo.src = img.dataset.video;
             modalVideo.load();
+            modalVideo.play();
 
             modal.classList.remove("hidden");
 
