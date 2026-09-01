@@ -460,6 +460,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // ========================================
 
     async function openZipFile(file, filename) {
+    console.log("OPEN ZIP FILE fonctionne !");
+    console.log("Fichier reçu :", filename);
 
     zipFileName.textContent = filename;
 
