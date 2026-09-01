@@ -251,6 +251,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const zipCode = document.querySelector('#zip-code code');
     const zipPreview = document.getElementById('zip-preview');
     const copyCodeButton = document.getElementById('copy-code');
+    const zipPdfPreview = document.getElementById('zip-pdf-preview');
+    const zipPdfPages = document.getElementById('zip-pdf-pages');
     const closeZipModal = zipModal.querySelector('.zip-close');
 
 
@@ -372,6 +374,86 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 
+    //afficher PDF 
+    async function displayPDF(file) {
+
+    // Nettoyage
+    zipPdfPages.innerHTML = '';
+
+    // Récupération du PDF depuis le ZIP
+    const arrayBuffer = await file.async('arraybuffer');
+
+    // Chargement avec PDF.js
+    const pdf = await pdfjsLib.getDocument({
+        data: arrayBuffer
+    }).promise;
+
+
+    // Parcours des pages
+    for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+
+        const page = await pdf.getPage(pageNumber);
+
+
+        // Taille de base
+        const viewport = page.getViewport({
+            scale: 1
+        });
+
+
+        // Largeur disponible
+        const containerWidth =
+            zipPdfPreview.clientWidth - 40;
+
+
+        // Adapter le PDF à la largeur
+        const scale =
+            Math.min(
+                containerWidth / viewport.width,
+                1.5
+            );
+
+
+        const scaledViewport =
+            page.getViewport({
+                scale: scale
+            });
+
+
+        // Canvas
+        const canvas =
+            document.createElement('canvas');
+
+
+        canvas.classList.add('pdf-page');
+
+
+        canvas.width =
+            scaledViewport.width;
+
+        canvas.height =
+            scaledViewport.height;
+
+
+        const context =
+            canvas.getContext('2d');
+
+
+        // Rendu de la page
+        await page.render({
+
+            canvasContext: context,
+
+            viewport: scaledViewport
+
+        }).promise;
+
+
+        zipPdfPages.appendChild(canvas);
+
+    }
+
+}
 
     // ========================================
     // Afficher un fichier
@@ -383,6 +465,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         zipPreview.classList.add('hidden');
         zipPreview.innerHTML = '';
+
+        zipPdfPreview.classList.add('hidden');
+        zipPdfPages.innerHTML = '';
 
         zipCode.parentElement.classList.remove('hidden');
 
@@ -496,6 +581,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
         }
 
+    }
+    // ----------------------------------------
+    // PDF
+    // ----------------------------------------
+
+    if (extension === 'pdf') {
+
+        try {
+
+            // Cacher le code
+            zipCode.parentElement.classList.add('hidden');
+
+            // Cacher les images
+            zipPreview.classList.add('hidden');
+
+            // Afficher la zone PDF
+            zipPdfPreview.classList.remove('hidden');
+
+
+            // Afficher le PDF
+            await displayPDF(file);
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            zipCode.parentElement.classList.remove('hidden');
+
+            zipPdfPreview.classList.add('hidden');
+
+            zipCode.textContent =
+                "Impossible d'afficher ce PDF.";
+
+        }
+
+        return;
     }
 
 
@@ -882,6 +1004,9 @@ document.addEventListener('DOMContentLoaded', function () {
         zipPreview.innerHTML = '';
 
         zipPreview.classList.add('hidden');
+
+        zipPdfPages.innerHTML = '';
+        zipPdfPreview.classList.add('hidden');
 
         zipCode.parentElement.classList.remove(
             'hidden'

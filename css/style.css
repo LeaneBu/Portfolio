@@ -1103,6 +1103,51 @@ input, textarea {
     border-radius: 5px;
 }
 
+/* ========================================
+   PDF
+   ======================================== */
+
+#zip-pdf-preview {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    background-color: #e5e5e5;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+}
+
+
+#zip-pdf-pages {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+/* Chaque page */
+
+.pdf-page {
+    display: block;
+
+    max-width: 100%;
+
+    height: auto;
+
+    background-color: white;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+
 
 /* ========================================
    MOBILE
@@ -1169,6 +1214,14 @@ input, textarea {
 
         padding: 5px 8px;
 
+    }
+
+    #zip-pdf-preview {
+        padding: 10px;
+    }
+
+    #zip-pdf-pages {
+        gap: 10px;
     }
 
 }
