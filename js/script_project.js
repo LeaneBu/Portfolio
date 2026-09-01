@@ -454,6 +454,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 }
+    // TODO : retirer les consol.log et les saut de ligne inutile (pareild ans le css) et reformater tout beau !!! xD
 
     // ========================================
     // Afficher un fichier
