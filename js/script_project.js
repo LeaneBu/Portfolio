@@ -580,8 +580,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 "Impossible de lire ce fichier.";
 
         }
-
-    }
+    
     // ----------------------------------------
     // PDF
     // ----------------------------------------
@@ -620,6 +619,9 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
+
+    }
+    
 
     // ========================================
     // Création de l'arborescence
