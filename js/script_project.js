@@ -239,78 +239,253 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    
-    // =========================
+
+    // ========================================
     // Lecteur ZIP
-    // =========================
+    // ========================================
 
     const zipModal = document.getElementById('zip-modal');
     const zipTitle = document.getElementById('zip-title');
     const zipFiles = document.getElementById('zip-files');
     const zipFileName = document.getElementById('zip-file-name');
-    const zipCode = document.getElementById('zip-code');
+    const zipCode = document.querySelector('#zip-code code');
+    const zipPreview = document.getElementById('zip-preview');
+    const copyCodeButton = document.getElementById('copy-code');
     const closeZipModal = zipModal.querySelector('.zip-close');
 
 
-    // Extensions que l'on considère comme lisibles en texte
+    let currentZip = null;
+
+
+    // ========================================
+    // Extensions texte
+    // ========================================
+
     const textExtensions = [
+
         'txt',
         'html',
         'htm',
+
         'css',
+
         'js',
         'jsx',
         'ts',
         'tsx',
+
         'java',
+
         'c',
         'h',
         'cpp',
         'hpp',
+
         'py',
+
         'php',
+
         'json',
         'xml',
+
         'md',
+
         'csv',
+
         'sql',
+
         'sh',
+
         'bat',
+
         'yml',
         'yaml'
+
     ];
 
 
-    function isTextFile(filename) {
+    // ========================================
+    // Déterminer l'extension
+    // ========================================
 
-        const extension = filename
+    function getExtension(filename) {
+
+        return filename
             .split('.')
             .pop()
             .toLowerCase();
 
-        return textExtensions.includes(extension);
     }
 
 
-    // Ouvre un fichier du ZIP
+    // ========================================
+    // Langage Prism
+    // ========================================
+
+    function getPrismLanguage(filename) {
+
+        const extension = getExtension(filename);
+
+
+        const languages = {
+
+            html: 'markup',
+            htm: 'markup',
+
+            css: 'css',
+
+            js: 'javascript',
+            jsx: 'javascript',
+
+            ts: 'typescript',
+            tsx: 'typescript',
+
+            java: 'java',
+
+            c: 'c',
+            h: 'c',
+
+            cpp: 'cpp',
+            hpp: 'cpp',
+
+            py: 'python',
+
+            php: 'php',
+
+            json: 'json',
+
+            xml: 'markup',
+
+            md: 'markdown',
+
+            sql: 'sql',
+
+            sh: 'bash',
+
+            yml: 'yaml',
+            yaml: 'yaml'
+
+        };
+
+
+        return languages[extension] || null;
+
+    }
+
+
+    // ========================================
+    // Afficher un fichier
+    // ========================================
+
     async function openZipFile(file, filename) {
 
         zipFileName.textContent = filename;
 
-        if (!isTextFile(filename)) {
+        zipPreview.classList.add('hidden');
+        zipPreview.innerHTML = '';
+
+        zipCode.parentElement.classList.remove('hidden');
+
+        copyCodeButton.classList.add('hidden');
+
+        zipCode.textContent = 'Chargement...';
+
+
+        const extension = getExtension(filename);
+
+
+        // ----------------------------------------
+        // IMAGE
+        // ----------------------------------------
+
+        const imageExtensions = [
+
+            'png',
+            'jpg',
+            'jpeg',
+            'gif',
+            'webp',
+            'svg'
+
+        ];
+
+
+        if (imageExtensions.includes(extension)) {
+
+            try {
+
+                const blob = await file.async('blob');
+
+                const url = URL.createObjectURL(blob);
+
+                const img = document.createElement('img');
+
+                img.src = url;
+
+                img.alt = filename;
+
+                zipPreview.appendChild(img);
+
+                zipCode.parentElement.classList.add('hidden');
+
+                zipPreview.classList.remove('hidden');
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+
+            return;
+
+        }
+
+
+        // ----------------------------------------
+        // FICHIER TEXTE
+        // ----------------------------------------
+
+        if (!textExtensions.includes(extension)) {
 
             zipCode.textContent =
                 "Aperçu non disponible pour ce type de fichier.\n\n" +
                 "Fichier : " + filename;
 
             return;
+
         }
+
 
         try {
 
-            const content = await file.async("text");
+            const content = await file.async('text');
 
-            zipCode.textContent = content;
+
+            const language = getPrismLanguage(filename);
+
+
+            if (language && Prism.languages[language]) {
+
+                zipCode.className = `language-${language}`;
+
+                zipCode.innerHTML =
+                    Prism.highlight(
+                        content,
+                        Prism.languages[language],
+                        language
+                    );
+
+            } else {
+
+                zipCode.className = '';
+
+                zipCode.textContent = content;
+
+            }
+
+
+            copyCodeButton.classList.remove('hidden');
+
 
         } catch (error) {
 
@@ -320,134 +495,420 @@ document.addEventListener('DOMContentLoaded', function () {
                 "Impossible de lire ce fichier.";
 
         }
+
     }
 
 
-    // Affiche les fichiers du ZIP
-    function displayZipFiles(zip) {
+    // ========================================
+    // Création de l'arborescence
+    // ========================================
 
-        zipFiles.innerHTML = "";
+    function createTree(zip) {
 
-        const fileNames = Object.keys(zip.files);
-
-        fileNames.forEach(filename => {
-
-            const file = zip.files[filename];
-
-            // Dossier
-            if (file.dir) {
-
-                const folder = document.createElement('div');
-
-                folder.classList.add('zip-file', 'zip-folder');
-
-                folder.textContent = filename;
-
-                zipFiles.appendChild(folder);
-
-                return;
-            }
+        const root = {
+            folders: {},
+            files: []
+        };
 
 
-            // Fichier
-            const button = document.createElement('button');
+        Object.keys(zip.files).forEach(path => {
 
-            button.classList.add('zip-file', 'file');
+            const zipEntry = zip.files[path];
 
-            button.textContent = filename;
+            const parts = path
+                .split('/')
+                .filter(part => part !== '');
 
-            button.addEventListener('click', () => {
 
-                openZipFile(file, filename);
+            let current = root;
+
+
+            parts.forEach((part, index) => {
+
+                const isLast = index === parts.length - 1;
+
+
+                if (isLast) {
+
+                    if (zipEntry.dir) {
+
+                        if (!current.folders[part]) {
+
+                            current.folders[part] = {
+                                folders: {},
+                                files: []
+                            };
+
+                        }
+
+                    } else {
+
+                        current.files.push({
+                            name: part,
+                            path: path,
+                            zipEntry: zipEntry
+                        });
+
+                    }
+
+                    return;
+
+                }
+
+
+                if (!current.folders[part]) {
+
+                    current.folders[part] = {
+                        folders: {},
+                        files: []
+                    };
+
+                }
+
+
+                current = current.folders[part];
 
             });
 
-            zipFiles.appendChild(button);
-
         });
+
+
+        return root;
+
     }
 
 
-    // Boutons "Voir le projet (.zip)"
-    document.querySelectorAll('.open-zip').forEach(button => {
+    // ========================================
+    // Afficher l'arborescence
+    // ========================================
 
-        button.addEventListener('click', async (e) => {
-
-            e.preventDefault();
-
-            const zipPath = button.dataset.zip;
-
-            // Reset
-            zipTitle.textContent = "Chargement du projet...";
-            zipFiles.innerHTML = "";
-            zipFileName.textContent = "";
-            zipCode.textContent = "Chargement...";
-
-            // Ouvre la modale
-            zipModal.classList.remove('hidden');
+    function renderTree(tree, container, level = 0) {
 
 
-            try {
+        // ----------------------------------------
+        // Dossiers
+        // ----------------------------------------
 
-                // Récupération du ZIP
-                const response = await fetch(zipPath);
+        Object.keys(tree.folders)
+            .sort()
+            .forEach(folderName => {
 
-                if (!response.ok) {
-                    throw new Error("Impossible de récupérer le ZIP.");
-                }
+                const folderContainer =
+                    document.createElement('div');
 
-                const blob = await response.blob();
 
-                // Lecture du ZIP
-                const zip = await JSZip.loadAsync(blob);
+                const folderButton =
+                    document.createElement('button');
 
-                // Titre
-                const zipName = zipPath
-                    .split('/')
-                    .pop()
-                    .replace('.zip', '');
 
-                zipTitle.textContent = zipName;
+                folderButton.classList.add(
+                    'zip-tree-item',
+                    'zip-folder'
+                );
 
-                // Affichage des fichiers
-                displayZipFiles(zip);
 
-            } catch (error) {
+                folderButton.textContent = folderName;
 
-                console.error(error);
 
-                zipTitle.textContent = "Erreur";
+                folderContainer.appendChild(folderButton);
 
-                zipFiles.innerHTML = "";
+
+                const children =
+                    document.createElement('div');
+
+
+                children.classList.add(
+                    'zip-tree-children'
+                );
+
+
+                children.style.display = 'none';
+
+
+                renderTree(
+                    tree.folders[folderName],
+                    children,
+                    level + 1
+                );
+
+
+                folderContainer.appendChild(children);
+
+
+                // Ouvrir / fermer
+                folderButton.addEventListener(
+                    'click',
+                    () => {
+
+                        const isOpen =
+                            children.style.display !== 'none';
+
+
+                        children.style.display =
+                            isOpen ? 'none' : 'block';
+
+
+                        folderButton.classList.toggle(
+                            'open',
+                            !isOpen
+                        );
+
+                    }
+                );
+
+
+                container.appendChild(folderContainer);
+
+            });
+
+
+        // ----------------------------------------
+        // Fichiers
+        // ----------------------------------------
+
+        tree.files
+            .sort((a, b) =>
+                a.name.localeCompare(b.name)
+            )
+            .forEach(file => {
+
+                const button =
+                    document.createElement('button');
+
+
+                button.classList.add(
+                    'zip-tree-item',
+                    'zip-file'
+                );
+
+
+                button.textContent = file.name;
+
+
+                button.title = file.path;
+
+
+                button.addEventListener(
+                    'click',
+                    () => {
+
+                        openZipFile(
+                            file.zipEntry,
+                            file.path
+                        );
+
+                    }
+                );
+
+
+                container.appendChild(button);
+
+            });
+
+    }
+
+
+    // ========================================
+    // Ouvrir un ZIP
+    // ========================================
+
+    document.querySelectorAll('.open-zip')
+        .forEach(link => {
+
+            link.addEventListener('click', async (e) => {
+
+                e.preventDefault();
+
+
+                const zipPath = link.href;
+
+
+                // Reset
+                zipTitle.textContent =
+                    'Chargement du projet...';
+
+                zipFiles.innerHTML = '';
+
+                zipFileName.textContent =
+                    'Sélectionnez un fichier';
 
                 zipCode.textContent =
-                    "Impossible d'ouvrir le projet.\n\n" +
-                    "Vérifiez que le fichier ZIP existe bien.";
+                    'Chargement...';
 
-            }
+                zipPreview.innerHTML = '';
+
+                zipPreview.classList.add('hidden');
+
+                zipCode.parentElement.classList.remove(
+                    'hidden'
+                );
+
+
+                copyCodeButton.classList.add('hidden');
+
+
+                // Ouvrir la modale
+                zipModal.classList.remove('hidden');
+
+
+                try {
+
+                    const response =
+                        await fetch(zipPath);
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            'Impossible de récupérer le ZIP.'
+                        );
+
+                    }
+
+
+                    const blob =
+                        await response.blob();
+
+
+                    currentZip =
+                        await JSZip.loadAsync(blob);
+
+
+                    // Nom du projet
+                    const zipName =
+                        zipPath
+                            .split('/')
+                            .pop()
+                            .replace(/\.zip$/i, '');
+
+
+                    zipTitle.textContent =
+                        zipName;
+
+
+                    // Arborescence
+                    const tree =
+                        createTree(currentZip);
+
+
+                    renderTree(
+                        tree,
+                        zipFiles
+                    );
+
+
+                } catch (error) {
+
+                    console.error(error);
+
+
+                    zipTitle.textContent =
+                        'Erreur';
+
+
+                    zipFiles.innerHTML = '';
+
+
+                    zipCode.textContent =
+                        "Impossible d'ouvrir le projet.\n\n" +
+                        "Vérifiez que le fichier ZIP existe bien.";
+
+                }
+
+            });
 
         });
 
-    });
+
+    // ========================================
+    // Copier le code
+    // ========================================
+
+    copyCodeButton.addEventListener(
+        'click',
+        async () => {
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    zipCode.textContent
+                );
 
 
-    // Fermeture avec X
-    closeZipModal.addEventListener('click', () => {
+                const originalText =
+                    copyCodeButton.textContent;
+
+
+                copyCodeButton.textContent =
+                    'Copié !';
+
+
+                setTimeout(() => {
+
+                    copyCodeButton.textContent =
+                        originalText;
+
+                }, 1500);
+
+
+            } catch (error) {
+
+                console.error(
+                    'Impossible de copier.',
+                    error
+                );
+
+            }
+
+        }
+    );
+
+
+    // ========================================
+    // Fermer
+    // ========================================
+
+    function closeZip() {
 
         zipModal.classList.add('hidden');
 
-    });
+        zipFiles.innerHTML = '';
+
+        zipFileName.textContent =
+            'Sélectionnez un fichier';
+
+        zipCode.textContent = '';
+
+        zipPreview.innerHTML = '';
+
+        zipPreview.classList.add('hidden');
+
+        zipCode.parentElement.classList.remove(
+            'hidden'
+        );
+
+        copyCodeButton.classList.add('hidden');
+
+    }
 
 
-    // Fermeture en cliquant à l'extérieur
-    zipModal.addEventListener('click', (e) => {
+    closeZipModal.addEventListener(
+        'click',
+        closeZip
+    );
 
-        if (e.target === zipModal) {
 
-            zipModal.classList.add('hidden');
+    zipModal.addEventListener(
+        'click',
+        (e) => {
+
+            if (e.target === zipModal) {
+
+                closeZip();
+
+            }
 
         }
-
-    });
+    );
 
 });

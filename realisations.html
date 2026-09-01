@@ -5,6 +5,8 @@
     <title>Réalisations</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+      rel="stylesheet">
 </head>
 <body>
     <header>
@@ -663,11 +665,10 @@
                                 </ul>
                             </p>
                         </div>
-                        <button
-                            class="project-button open-zip"
-                            data-zip="doc/BUT_1/SAE1.056/SAE1.05-06.zip">
-                            Voir le projet (.zip)
-                        </button>                    
+                        <a href="doc/BUT_1/SAE1.056/SAE1.05-06.zip"
+                            class="project-button open-zip">
+                            Projet (.zip)
+                        </a>                  
                     </article>
                     <!-- etc -->
                 </div>
@@ -691,34 +692,54 @@
             </div>
             <!-- Modal lecteur ZIP -->
             <div id="zip-modal" class="modal hidden">
-                <div class="zip-modal-content">
+    <div class="zip-modal-content">
 
-                    <button class="close-modal zip-close" aria-label="Fermer">
-                        &times;
+        <button class="close-modal zip-close" aria-label="Fermer">
+            &times;
+        </button>
+
+        <h2 id="zip-title">Projet</h2>
+
+        <div class="zip-viewer">
+
+            <!-- ARBORESCENCE -->
+            <aside class="zip-file-list">
+
+                <div class="zip-file-list-header">
+                    <h3>Fichiers</h3>
+                </div>
+
+                <div id="zip-files"></div>
+
+            </aside>
+
+
+            <!-- CONTENU -->
+            <main class="zip-file-content">
+
+                <div class="zip-code-header">
+
+                    <span id="zip-file-name">
+                        Sélectionnez un fichier
+                    </span>
+
+                    <button id="copy-code" class="copy-code hidden">
+                        Copier
                     </button>
 
-                    <h2 id="zip-title">Projet</h2>
-
-                    <div class="zip-viewer">
-
-                        <!-- Liste des fichiers -->
-                        <aside class="zip-file-list">
-                            <h3>Fichiers</h3>
-                            <div id="zip-files"></div>
-                        </aside>
-
-                        <!-- Contenu du fichier -->
-                        <main class="zip-file-content">
-                            <div id="zip-file-name">Sélectionnez un fichier</div>
-
-                            <pre id="zip-code">
-            Cliquez sur un fichier pour afficher son contenu.
-                            </pre>
-                        </main>
-
-                    </div>
                 </div>
-            </div>
+
+                <pre id="zip-code"><code></code></pre>
+
+                <div id="zip-preview" class="hidden"></div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+</div>
             
     
             <!-- projets personnels -->
@@ -911,6 +932,19 @@
     <footer>
         <p>© 2025 Mon Portfolio. Tous droits réservés.</p>
     </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="js/script_project.js"></script>
 </body>

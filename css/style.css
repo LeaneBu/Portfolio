@@ -829,92 +829,160 @@ input, textarea {
     transform: scale(1.1);
   }
   
-/* =========================
-   Lecteur ZIP
-   ========================= */
+/* ========================================
+   LECTEUR ZIP
+   ======================================== */
 
 .zip-modal-content {
     background-color: white;
+
     width: 90%;
     max-width: 1200px;
     height: 85vh;
+
     border-radius: 10px;
+
     position: relative;
+
     padding: 25px;
+
     box-sizing: border-box;
 
     display: flex;
     flex-direction: column;
 }
 
+
+/* Titre */
+
 .zip-modal-content h2 {
     margin-top: 0;
     margin-bottom: 20px;
 }
 
-/* Zone principale */
+
+/* ========================================
+   Zone principale
+   ======================================== */
 
 .zip-viewer {
     display: flex;
+
     flex: 1;
     min-height: 0;
+
     gap: 15px;
 }
 
-/* Liste des fichiers */
+
+/* ========================================
+   ARBORESCENCE
+   ======================================== */
 
 .zip-file-list {
-    width: 260px;
-    min-width: 200px;
+    width: 280px;
+    min-width: 220px;
+
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 15px;
+
     overflow-y: auto;
+
+    padding: 10px;
+
+    box-sizing: border-box;
 }
+
+
+.zip-file-list-header {
+    padding: 5px 8px 10px;
+
+    border-bottom: 1px solid #ddd;
+
+    margin-bottom: 5px;
+}
+
 
 .zip-file-list h3 {
-    margin-top: 0;
+    margin: 0;
 }
 
-.zip-file {
-    display: block;
+
+/* Chaque élément */
+
+.zip-tree-item {
     width: 100%;
-    text-align: left;
 
-    background: none;
+    box-sizing: border-box;
+
+    font-family: inherit;
+
     border: none;
+    background: none;
 
-    padding: 8px;
+    padding: 6px 8px;
+
     border-radius: 5px;
 
     cursor: pointer;
-    font-family: inherit;
+
+    text-align: left;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.zip-file:hover {
+
+.zip-tree-item:hover {
     background-color: #eeeeee;
 }
 
+
+/* Dossier */
+
 .zip-folder {
     font-weight: bold;
-    cursor: default;
 }
+
+
+/* Icône */
 
 .zip-folder::before {
     content: "📁 ";
+
 }
 
-.zip-file.file::before {
+
+.zip-folder.open::before {
+    content: "📂 ";
+}
+
+
+.zip-file::before {
     content: "📄 ";
 }
 
-/* Contenu */
+
+/* Indentation */
+
+.zip-tree-children {
+    margin-left: 18px;
+}
+
+
+/* ========================================
+   CONTENU DU FICHIER
+   ======================================== */
 
 .zip-file-content {
     flex: 1;
+
     min-width: 0;
+    min-height: 0;
 
     border: 1px solid #ddd;
+
     border-radius: 8px;
 
     overflow: hidden;
@@ -923,60 +991,186 @@ input, textarea {
     flex-direction: column;
 }
 
-#zip-file-name {
-    padding: 10px 15px;
+
+/* Header */
+
+.zip-code-header {
+    min-height: 45px;
+
+    padding: 0 15px;
+
     background-color: #f2f2f2;
+
     border-bottom: 1px solid #ddd;
 
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+
+#zip-file-name {
     font-weight: bold;
 
     overflow: hidden;
+
     text-overflow: ellipsis;
+
     white-space: nowrap;
 }
 
+
+/* ========================================
+   Code
+   ======================================== */
+
 #zip-code {
     flex: 1;
+
     margin: 0;
+
     padding: 20px;
 
     overflow: auto;
 
-    font-family: "Courier New", monospace;
     font-size: 14px;
+
     line-height: 1.5;
 
-    white-space: pre;
+    text-align: left;
 }
 
-/* Mobile */
+
+#zip-code code {
+    font-family: "Courier New", monospace;
+}
+
+
+/* ========================================
+   Bouton copier
+   ======================================== */
+
+.copy-code {
+    border: none;
+
+    border-radius: 5px;
+
+    padding: 6px 10px;
+
+    cursor: pointer;
+
+    background-color: #333;
+
+    color: white;
+
+    transition: opacity 0.2s ease;
+}
+
+
+.copy-code:hover {
+    opacity: 0.8;
+}
+
+
+/* ========================================
+   Images
+   ======================================== */
+
+#zip-preview {
+    flex: 1;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    overflow: auto;
+}
+
+
+#zip-preview img {
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain;
+
+    border-radius: 5px;
+}
+
+
+/* ========================================
+   MOBILE
+   ======================================== */
 
 @media (max-width: 700px) {
 
     .zip-modal-content {
+
         width: 95%;
-        height: 90vh;
+        height: 92vh;
+
         padding: 15px;
+
     }
+
+
+    .zip-modal-content h2 {
+
+        margin-bottom: 12px;
+
+        font-size: 20px;
+
+    }
+
 
     .zip-viewer {
+
         flex-direction: column;
+
     }
+
 
     .zip-file-list {
+
         width: 100%;
+
         min-width: 0;
+
         height: 180px;
-        box-sizing: border-box;
+
+        flex-shrink: 0;
+
     }
+
 
     .zip-file-content {
+
         min-height: 0;
+
     }
 
+
     #zip-code {
+
+        padding: 15px;
+
         font-size: 12px;
+
     }
+
+
+    .zip-tree-item {
+
+        padding: 5px 8px;
+
+    }
+
 }
 
 /* Footer styles */
