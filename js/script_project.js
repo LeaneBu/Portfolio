@@ -461,129 +461,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function openZipFile(file, filename) {
 
-        zipFileName.textContent = filename;
+    zipFileName.textContent = filename;
 
-        zipPreview.classList.add('hidden');
-        zipPreview.innerHTML = '';
+    // Nettoyer les affichages précédents
+    zipPreview.classList.add('hidden');
+    zipPreview.innerHTML = '';
 
-        zipPdfPreview.classList.add('hidden');
-        zipPdfPages.innerHTML = '';
+    zipPdfPreview.classList.add('hidden');
+    zipPdfPages.innerHTML = '';
 
-        zipCode.parentElement.classList.remove('hidden');
+    zipCode.parentElement.classList.remove('hidden');
 
-        copyCodeButton.classList.add('hidden');
+    copyCodeButton.classList.add('hidden');
 
-        zipCode.textContent = 'Chargement...';
-
-
-        const extension = getExtension(filename);
+    zipCode.textContent = 'Chargement...';
 
 
-        // ----------------------------------------
-        // IMAGE
-        // ----------------------------------------
-
-        const imageExtensions = [
-
-            'png',
-            'jpg',
-            'jpeg',
-            'gif',
-            'webp',
-            'svg'
-
-        ];
+    // Extension du fichier
+    const extension = filename
+        .split('.')
+        .pop()
+        .toLowerCase();
 
 
-        if (imageExtensions.includes(extension)) {
-
-            try {
-
-                const blob = await file.async('blob');
-
-                const url = URL.createObjectURL(blob);
-
-                const img = document.createElement('img');
-
-                img.src = url;
-
-                img.alt = filename;
-
-                zipPreview.appendChild(img);
-
-                zipCode.parentElement.classList.add('hidden');
-
-                zipPreview.classList.remove('hidden');
-
-            } catch (error) {
-
-                console.error(error);
-
-            }
-
-            return;
-
-        }
+    console.log("Fichier :", filename);
+    console.log("Extension détectée :", extension);
 
 
-        // ----------------------------------------
-        // FICHIER TEXTE
-        // ----------------------------------------
-
-        if (!textExtensions.includes(extension)) {
-
-            zipCode.textContent =
-                "Aperçu non disponible pour ce type de fichier.\n\n" +
-                "Fichier : " + filename;
-
-            return;
-
-        }
-
-
-        try {
-
-            const content = await file.async('text');
-
-
-            const language = getPrismLanguage(filename);
-
-
-            if (language && Prism.languages[language]) {
-
-                zipCode.className = `language-${language}`;
-
-                zipCode.innerHTML =
-                    Prism.highlight(
-                        content,
-                        Prism.languages[language],
-                        language
-                    );
-
-            } else {
-
-                zipCode.className = '';
-
-                zipCode.textContent = content;
-
-            }
-
-
-            copyCodeButton.classList.remove('hidden');
-
-
-        } catch (error) {
-
-            console.error(error);
-
-            zipCode.textContent =
-                "Impossible de lire ce fichier.";
-
-        }
-    
-    // ----------------------------------------
+    // ========================================
     // PDF
-    // ----------------------------------------
+    // ========================================
 
     if (extension === 'pdf') {
 
@@ -598,21 +505,73 @@ document.addEventListener('DOMContentLoaded', function () {
             // Afficher la zone PDF
             zipPdfPreview.classList.remove('hidden');
 
-
             // Afficher le PDF
             await displayPDF(file);
 
-
         } catch (error) {
 
-            console.error(error);
+            console.error("Erreur PDF :", error);
 
             zipCode.parentElement.classList.remove('hidden');
 
             zipPdfPreview.classList.add('hidden');
 
             zipCode.textContent =
-                "Impossible d'afficher ce PDF.";
+                "Impossible d'afficher ce PDF.\n\n" +
+                error.message;
+        }
+
+        return;
+    }
+
+
+    // ========================================
+    // Images
+    // ========================================
+
+    const imageExtensions = [
+        'png',
+        'jpg',
+        'jpeg',
+        'gif',
+        'webp',
+        'svg'
+    ];
+
+
+    if (imageExtensions.includes(extension)) {
+
+        try {
+
+            const blob =
+                await file.async('blob');
+
+            const url =
+                URL.createObjectURL(blob);
+
+            const img =
+                document.createElement('img');
+
+            img.src = url;
+
+            img.alt = filename;
+
+            zipPreview.appendChild(img);
+
+            zipCode.parentElement.classList.add(
+                'hidden'
+            );
+
+            zipPreview.classList.remove(
+                'hidden'
+            );
+
+        } catch (error) {
+
+            console.error(error);
+
+            zipCode.textContent =
+                "Impossible d'afficher cette image.";
 
         }
 
@@ -620,7 +579,74 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+    // ========================================
+    // Fichiers texte
+    // ========================================
+
+    if (!textExtensions.includes(extension)) {
+
+        zipCode.textContent =
+            "Aperçu non disponible pour ce type de fichier.\n\n" +
+            "Fichier : " + filename;
+
+        return;
     }
+
+
+    // ========================================
+    // Lecture texte
+    // ========================================
+
+    try {
+
+        const content =
+            await file.async('text');
+
+
+        const language =
+            getPrismLanguage(filename);
+
+
+        if (
+            language &&
+            Prism.languages[language]
+        ) {
+
+            zipCode.className =
+                `language-${language}`;
+
+            zipCode.innerHTML =
+                Prism.highlight(
+                    content,
+                    Prism.languages[language],
+                    language
+                );
+
+        } else {
+
+            zipCode.className = '';
+
+            zipCode.textContent =
+                content;
+
+        }
+
+
+        copyCodeButton.classList.remove(
+            'hidden'
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        zipCode.textContent =
+            "Impossible de lire ce fichier.";
+
+    }
+
+}
     
 
     // ========================================
