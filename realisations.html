@@ -632,6 +632,43 @@
                         </div>
                         <a href="doc/L3_info-com/Projet_PdC/Projet.zip" class="project-button" download>Projet (.zip)</a>
                     </article>
+                    <article class="project">
+                        <div class="carousel">
+                            <div class="carousel-images">
+                                <img src="img/projets/BUT_1/SAE1.056/SAE1_hardis.jpg" alt="Image 1">
+                            </div>
+                            <button class="carousel-button prev"></button>
+                            <button class="carousel-button next"></button>
+                        </div>
+                        <h2>test</h2>
+                        <p>test zip</p>
+                        <button class="details-toggle" aria-label="Afficher les détails">
+                            <i class="fa-solid fa-circle-plus"></i>
+                          </button>                          
+                        <div class="project-details hidden">
+                            <p>
+                                <strong>Projet Tutoré sur la réalisation d'un projet vidéo courte :</strong><br>
+                                Suite à la demande d'un commanditaire de l'association Passe de Coeur, association locale (38 Isère) pour 
+                                sensibiliser au don d'organe, nous avons dû créer une vidéo courte (sur <a target="_blank" href="https://youtube.com/shorts/NdwpivFSuqI">Youtube</a>) à destination des réseaux
+                                sociaux de l'association. Pour se faire, par groupe de 3, nous avons dû mettre en place des storyboards, gérér un tournage, 
+                                gérer le matériel...
+                            </p>
+                            <p>
+                                Compétences: <br>
+                                <ul>
+                                    <li>Gestion de projet</li>
+                                    <li>Mise en place d'un plateau de tournage dans un temps limité</li>
+                                    <li>Montage vidéo avec Adobe Premiere Pro</li>
+                                    <li>Respecter un cahier des charges</li>
+                                </ul>
+                            </p>
+                        </div>
+                        <button
+                            class="project-button open-zip"
+                            data-zip="doc/BUT_1/SAE1.056/SAE1.05-06.zip">
+                            Voir le projet (.zip)
+                        </button>                    
+                    </article>
                     <!-- etc -->
                 </div>
             </section>
@@ -649,6 +686,36 @@
                     <span class="close-modal">&times;</span>
                     <div id="modal-project-text">
                         <!-- détail injecté -->
+                    </div>
+                </div>
+            </div>
+            <!-- Modal lecteur ZIP -->
+            <div id="zip-modal" class="modal hidden">
+                <div class="zip-modal-content">
+
+                    <button class="close-modal zip-close" aria-label="Fermer">
+                        &times;
+                    </button>
+
+                    <h2 id="zip-title">Projet</h2>
+
+                    <div class="zip-viewer">
+
+                        <!-- Liste des fichiers -->
+                        <aside class="zip-file-list">
+                            <h3>Fichiers</h3>
+                            <div id="zip-files"></div>
+                        </aside>
+
+                        <!-- Contenu du fichier -->
+                        <main class="zip-file-content">
+                            <div id="zip-file-name">Sélectionnez un fichier</div>
+
+                            <pre id="zip-code">
+            Cliquez sur un fichier pour afficher son contenu.
+                            </pre>
+                        </main>
+
                     </div>
                 </div>
             </div>
@@ -844,6 +911,7 @@
     <footer>
         <p>© 2025 Mon Portfolio. Tous droits réservés.</p>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="js/script_project.js"></script>
 </body>
 </html>

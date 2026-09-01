@@ -238,4 +238,216 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+
+    
+    // =========================
+    // Lecteur ZIP
+    // =========================
+
+    const zipModal = document.getElementById('zip-modal');
+    const zipTitle = document.getElementById('zip-title');
+    const zipFiles = document.getElementById('zip-files');
+    const zipFileName = document.getElementById('zip-file-name');
+    const zipCode = document.getElementById('zip-code');
+    const closeZipModal = zipModal.querySelector('.zip-close');
+
+
+    // Extensions que l'on considère comme lisibles en texte
+    const textExtensions = [
+        'txt',
+        'html',
+        'htm',
+        'css',
+        'js',
+        'jsx',
+        'ts',
+        'tsx',
+        'java',
+        'c',
+        'h',
+        'cpp',
+        'hpp',
+        'py',
+        'php',
+        'json',
+        'xml',
+        'md',
+        'csv',
+        'sql',
+        'sh',
+        'bat',
+        'yml',
+        'yaml'
+    ];
+
+
+    function isTextFile(filename) {
+
+        const extension = filename
+            .split('.')
+            .pop()
+            .toLowerCase();
+
+        return textExtensions.includes(extension);
+    }
+
+
+    // Ouvre un fichier du ZIP
+    async function openZipFile(file, filename) {
+
+        zipFileName.textContent = filename;
+
+        if (!isTextFile(filename)) {
+
+            zipCode.textContent =
+                "Aperçu non disponible pour ce type de fichier.\n\n" +
+                "Fichier : " + filename;
+
+            return;
+        }
+
+        try {
+
+            const content = await file.async("text");
+
+            zipCode.textContent = content;
+
+        } catch (error) {
+
+            console.error(error);
+
+            zipCode.textContent =
+                "Impossible de lire ce fichier.";
+
+        }
+    }
+
+
+    // Affiche les fichiers du ZIP
+    function displayZipFiles(zip) {
+
+        zipFiles.innerHTML = "";
+
+        const fileNames = Object.keys(zip.files);
+
+        fileNames.forEach(filename => {
+
+            const file = zip.files[filename];
+
+            // Dossier
+            if (file.dir) {
+
+                const folder = document.createElement('div');
+
+                folder.classList.add('zip-file', 'zip-folder');
+
+                folder.textContent = filename;
+
+                zipFiles.appendChild(folder);
+
+                return;
+            }
+
+
+            // Fichier
+            const button = document.createElement('button');
+
+            button.classList.add('zip-file', 'file');
+
+            button.textContent = filename;
+
+            button.addEventListener('click', () => {
+
+                openZipFile(file, filename);
+
+            });
+
+            zipFiles.appendChild(button);
+
+        });
+    }
+
+
+    // Boutons "Voir le projet (.zip)"
+    document.querySelectorAll('.open-zip').forEach(button => {
+
+        button.addEventListener('click', async (e) => {
+
+            e.preventDefault();
+
+            const zipPath = button.dataset.zip;
+
+            // Reset
+            zipTitle.textContent = "Chargement du projet...";
+            zipFiles.innerHTML = "";
+            zipFileName.textContent = "";
+            zipCode.textContent = "Chargement...";
+
+            // Ouvre la modale
+            zipModal.classList.remove('hidden');
+
+
+            try {
+
+                // Récupération du ZIP
+                const response = await fetch(zipPath);
+
+                if (!response.ok) {
+                    throw new Error("Impossible de récupérer le ZIP.");
+                }
+
+                const blob = await response.blob();
+
+                // Lecture du ZIP
+                const zip = await JSZip.loadAsync(blob);
+
+                // Titre
+                const zipName = zipPath
+                    .split('/')
+                    .pop()
+                    .replace('.zip', '');
+
+                zipTitle.textContent = zipName;
+
+                // Affichage des fichiers
+                displayZipFiles(zip);
+
+            } catch (error) {
+
+                console.error(error);
+
+                zipTitle.textContent = "Erreur";
+
+                zipFiles.innerHTML = "";
+
+                zipCode.textContent =
+                    "Impossible d'ouvrir le projet.\n\n" +
+                    "Vérifiez que le fichier ZIP existe bien.";
+
+            }
+
+        });
+
+    });
+
+
+    // Fermeture avec X
+    closeZipModal.addEventListener('click', () => {
+
+        zipModal.classList.add('hidden');
+
+    });
+
+
+    // Fermeture en cliquant à l'extérieur
+    zipModal.addEventListener('click', (e) => {
+
+        if (e.target === zipModal) {
+
+            zipModal.classList.add('hidden');
+
+        }
+
+    });
+
 });

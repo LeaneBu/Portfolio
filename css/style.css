@@ -829,7 +829,155 @@ input, textarea {
     transform: scale(1.1);
   }
   
+/* =========================
+   Lecteur ZIP
+   ========================= */
 
+.zip-modal-content {
+    background-color: white;
+    width: 90%;
+    max-width: 1200px;
+    height: 85vh;
+    border-radius: 10px;
+    position: relative;
+    padding: 25px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.zip-modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Zone principale */
+
+.zip-viewer {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    gap: 15px;
+}
+
+/* Liste des fichiers */
+
+.zip-file-list {
+    width: 260px;
+    min-width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.zip-file-list h3 {
+    margin-top: 0;
+}
+
+.zip-file {
+    display: block;
+    width: 100%;
+    text-align: left;
+
+    background: none;
+    border: none;
+
+    padding: 8px;
+    border-radius: 5px;
+
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.zip-file:hover {
+    background-color: #eeeeee;
+}
+
+.zip-folder {
+    font-weight: bold;
+    cursor: default;
+}
+
+.zip-folder::before {
+    content: "📁 ";
+}
+
+.zip-file.file::before {
+    content: "📄 ";
+}
+
+/* Contenu */
+
+.zip-file-content {
+    flex: 1;
+    min-width: 0;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#zip-file-name {
+    padding: 10px 15px;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #ddd;
+
+    font-weight: bold;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#zip-code {
+    flex: 1;
+    margin: 0;
+    padding: 20px;
+
+    overflow: auto;
+
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.5;
+
+    white-space: pre;
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .zip-modal-content {
+        width: 95%;
+        height: 90vh;
+        padding: 15px;
+    }
+
+    .zip-viewer {
+        flex-direction: column;
+    }
+
+    .zip-file-list {
+        width: 100%;
+        min-width: 0;
+        height: 180px;
+        box-sizing: border-box;
+    }
+
+    .zip-file-content {
+        min-height: 0;
+    }
+
+    #zip-code {
+        font-size: 12px;
+    }
+}
 
 /* Footer styles */
 footer {
