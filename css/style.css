@@ -453,7 +453,7 @@ article.softskills .competence-icon {
 
 /* rota */
 .experience-card .vinyl {
-    animation: vinyl-spin 12s linear infinite;
+    animation: vinyl-spin 8s linear infinite;
 }
 
 @keyframes vinyl-spin {
