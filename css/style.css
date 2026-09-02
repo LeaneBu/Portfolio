@@ -475,6 +475,14 @@ article.softskills .competence-icon {
     }
 }
 
+@media (max-width: 600px) {
+
+    .experience-card .vinyl {
+        animation: vinyl-spin 12s linear infinite;
+    }
+
+}
+
 .vinyl-label {
     width: 85px;
     height: 85px;
