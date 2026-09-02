@@ -427,18 +427,7 @@ article.softskills .competence-icon {
     border-radius: 20px;
     background: #fff;
     border: 2px solid #e5ddea;
-    box-shadow: 6px 6px 0 #e5ddea;
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
 }
-
-.experience-card:hover {
-    transform: translateY(-8px);
-    box-shadow:
-        10px 12px 0 #e5ddea;
-}
-
 
 .vinyl {
     position: relative;
@@ -463,9 +452,10 @@ article.softskills .competence-icon {
 }
 
 /* rota */
-.experience-card:hover .vinyl {
-    animation: vinyl-spin 4s linear infinite;
+.experience-card .vinyl {
+    animation: vinyl-spin 12s linear infinite;
 }
+
 @keyframes vinyl-spin {
     from {
         transform: rotate(0deg);
@@ -473,14 +463,6 @@ article.softskills .competence-icon {
     to {
         transform: rotate(360deg);
     }
-}
-
-@media (max-width: 600px) {
-
-    .experience-card .vinyl {
-        animation: vinyl-spin 12s linear infinite;
-    }
-
 }
 
 .vinyl-label {
