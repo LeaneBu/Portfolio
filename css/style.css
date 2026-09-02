@@ -487,11 +487,13 @@ article.softskills .competence-icon {
     background: white;
     border: 3px solid #ddd6e8;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
 }
 
-.experience-logo span {
-    font-size: 0.8rem;
-    opacity: 0.5;
+.experience-logo img {
+    width: 75%;
+    height: 75%;
+    object-fit: contain;
 }
 
 .experience-main {
