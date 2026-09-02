@@ -155,7 +155,7 @@
                                 </ul>
                             </p>
                         </div>
-                        <a href="doc/BUT_1/SAE1.01/SAE_1.01.pdf" class="project-button" download>PDF</a>
+                        <a href="doc/BUT_1/SAE1.01/SAE_1.01.pdf" class="project-button open-pdf" >PDF</a>
                     </article>
                     <article class="project">
                         <div class="carousel">
@@ -713,6 +713,33 @@
     </div>
 
 </div>
+
+<!-- Modal lecteur PDF direct -->
+<div id="pdf-modal" class="modal hidden">
+
+    <div class="pdf-modal-content">
+
+        <button
+            class="close-modal pdf-close"
+            aria-label="Fermer">
+            &times;
+        </button>
+
+        <div class="pdf-viewer">
+
+            <div class="pdf-header">
+                <span id="pdf-file-name">
+                    Document PDF
+                </span>
+            </div>
+
+            <div id="pdf-pages"></div>
+
+        </div>
+
+    </div>
+
+</div>
             
     
             <!-- projets personnels -->
@@ -909,7 +936,6 @@
    
     <!-- TODO : essayer de regrouper ça de manière plus joli !-->
     <script src="js/libraries.js"></script>
-    <script src="js/script_project.js"></script>
 </body>
 </html>
 

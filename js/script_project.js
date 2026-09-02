@@ -27,8 +27,38 @@ document.addEventListener('DOMContentLoaded', function () {
         updateCarousel();
     });
 
+// ========================================
+// CHARGEMENT DES VIEWERS
+// ========================================
 
-    // --- Modal image + vidéo
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+
+        script.src = src;
+
+        script.onload = resolve;
+        script.onerror = () => {
+            reject(new Error(`Impossible de charger : ${src}`));
+        };
+
+        document.body.appendChild(script);
+    });
+}
+
+async function loadViewers() {
+    await loadScript('js/viewers/image-video-viewer.js');
+    await loadScript('js/viewers/pdf-viewer.js');
+    await loadScript('js/viewers/zip-viewer.js');
+
+    console.log('Tous les viewers sont chargés !');
+}
+
+loadViewers().catch(error => {
+    console.error('Erreur lors du chargement des viewers :', error);
+});
+
+/*     // --- Modal image + vidéo
     const modal = document.getElementById('image-modal');
     const modalImage = document.getElementById('modal-image');
     const closeModal = modal.querySelector('.close-modal');
@@ -143,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
             modalVideoSource.src = "";
         }
 
-    });
+    }); */
 
 
     // --- Recherche
@@ -211,16 +241,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const projectModalText = document.getElementById('modal-project-text');
     const closeProjectModal = projectModal.querySelector('.close-modal');
 
-    // On cible tous les boutons "plus de détails"
+    //tous les boutons "plus de détails"
     document.querySelectorAll('.details-toggle').forEach((btn) => {
         btn.addEventListener('click', () => {
             const project = btn.closest('.project');
             const details = project.querySelector('.project-details');
 
-            // Injecte le contenu dans la modale
+            // contenu dans la modale
             projectModalText.innerHTML = details.innerHTML;
 
-            // Affiche la modale
+            // print la modale
             projectModal.classList.remove('hidden');
         });
     });
@@ -239,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-
+/* 
     // ========================================
     // Lecteur ZIP
     // ========================================
@@ -326,130 +356,130 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getPrismLanguage(filename) {
 
-    const extension = filename
-        .split('.')
-        .pop()
-        .toLowerCase();
+        const extension = filename
+            .split('.')
+            .pop()
+            .toLowerCase();
 
-    const languages = {
+        const languages = {
 
-        // Web
-        html: 'markup',
-        htm: 'markup',
-        xml: 'markup',
-        svg: 'markup',
+            // Web
+            html: 'markup',
+            htm: 'markup',
+            xml: 'markup',
+            svg: 'markup',
 
-        css: 'css',
+            css: 'css',
 
-        js: 'javascript',
-        mjs: 'javascript',
-        jsx: 'javascript',
+            js: 'javascript',
+            mjs: 'javascript',
+            jsx: 'javascript',
 
-        // Java / C
-        java: 'java',
-        c: 'c',
-        h: 'c',
-        cpp: 'cpp',
-        hpp: 'cpp',
+            // Java / C
+            java: 'java',
+            c: 'c',
+            h: 'c',
+            cpp: 'cpp',
+            hpp: 'cpp',
 
-        // Python
-        py: 'python',
+            // Python
+            py: 'python',
 
-        // PHP
-        php: 'php',
+            // PHP
+            php: 'php',
 
-        // Données
-        json: 'json',
+            // Données
+            json: 'json',
 
-        // Texte
-        txt: null,
-        md: 'markdown'
+            // Texte
+            txt: null,
+            md: 'markdown'
 
-    };
+        };
 
-    return languages[extension] ?? null;
-}
+        return languages[extension] ?? null;
+    }
 
     //afficher PDF 
     async function displayPDF(file) {
 
-    // Nettoyage
-    zipPdfPages.innerHTML = '';
+        // Nettoyage
+        zipPdfPages.innerHTML = '';
 
-    // Récupération du PDF depuis le ZIP
-    const arrayBuffer = await file.async('arraybuffer');
+        // Récupération du PDF depuis le ZIP
+        const arrayBuffer = await file.async('arraybuffer');
 
-    // Chargement avec PDF.js
-    const pdf = await pdfjsLib.getDocument({
-        data: arrayBuffer
-    }).promise;
-
-
-    // Parcours des pages
-    for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
-
-        const page = await pdf.getPage(pageNumber);
-
-
-        // Taille de base
-        const viewport = page.getViewport({
-            scale: 1
-        });
-
-
-        // Largeur disponible
-        const containerWidth =
-            zipPdfPreview.clientWidth - 40;
-
-
-        // Adapter le PDF à la largeur
-        const scale =
-            Math.min(
-                containerWidth / viewport.width,
-                1.5
-            );
-
-
-        const scaledViewport =
-            page.getViewport({
-                scale: scale
-            });
-
-
-        // Canvas
-        const canvas =
-            document.createElement('canvas');
-
-
-        canvas.classList.add('pdf-page');
-
-
-        canvas.width =
-            scaledViewport.width;
-
-        canvas.height =
-            scaledViewport.height;
-
-
-        const context =
-            canvas.getContext('2d');
-
-
-        // Rendu de la page
-        await page.render({
-
-            canvasContext: context,
-
-            viewport: scaledViewport
-
+        // Chargement avec PDF.js
+        const pdf = await pdfjsLib.getDocument({
+            data: arrayBuffer
         }).promise;
 
 
-        zipPdfPages.appendChild(canvas);
+        // Parcours des pages
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+
+            const page = await pdf.getPage(pageNumber);
+
+
+            // Taille de base
+            const viewport = page.getViewport({
+                scale: 1
+            });
+
+
+            // Largeur disponible
+            const containerWidth =
+                zipPdfPreview.clientWidth - 40;
+
+
+            // Adapter le PDF à la largeur
+            const scale =
+                Math.min(
+                    containerWidth / viewport.width,
+                    1.5
+                );
+
+
+            const scaledViewport =
+                page.getViewport({
+                    scale: scale
+                });
+
+
+            // Canvas
+            const canvas =
+                document.createElement('canvas');
+
+
+            canvas.classList.add('pdf-page');
+
+
+            canvas.width =
+                scaledViewport.width;
+
+            canvas.height =
+                scaledViewport.height;
+
+
+            const context =
+                canvas.getContext('2d');
+
+
+            // Rendu de la page
+            await page.render({
+
+                canvasContext: context,
+
+                viewport: scaledViewport
+
+            }).promise;
+
+
+            zipPdfPages.appendChild(canvas);
+
+        }
 
     }
-
-}
     // TODO : retirer les consol.log et les saut de ligne inutile (pareild ans le css) et reformater tout beau !!! xD
 
     // ========================================
@@ -457,210 +487,210 @@ document.addEventListener('DOMContentLoaded', function () {
     // ========================================
 
     async function openZipFile(file, filename) {
-    console.log("OPEN ZIP FILE fonctionne !");
-    console.log("Fichier reçu :", filename);
+        console.log("OPEN ZIP FILE fonctionne !");
+        console.log("Fichier reçu :", filename);
 
-    zipFileName.textContent = filename;
+        zipFileName.textContent = filename;
 
-    // Nettoyer les affichages précédents
-    zipPreview.classList.add('hidden');
-    zipPreview.innerHTML = '';
+        // Nettoyer les affichages précédents
+        zipPreview.classList.add('hidden');
+        zipPreview.innerHTML = '';
 
-    zipPdfPreview.classList.add('hidden');
-    zipPdfPages.innerHTML = '';
+        zipPdfPreview.classList.add('hidden');
+        zipPdfPages.innerHTML = '';
 
-    zipCode.parentElement.classList.remove('hidden');
+        zipCode.parentElement.classList.remove('hidden');
 
-    copyCodeButton.classList.add('hidden');
+        copyCodeButton.classList.add('hidden');
 
-    zipCode.textContent = 'Chargement...';
-
-
-    // Extension du fichier
-    const extension = filename
-        .split('.')
-        .pop()
-        .toLowerCase();
+        zipCode.textContent = 'Chargement...';
 
 
-    console.log("Fichier :", filename);
-    console.log("Extension détectée :", extension);
+        // Extension du fichier
+        const extension = filename
+            .split('.')
+            .pop()
+            .toLowerCase();
 
 
-    // ========================================
-    // PDF
-    // ========================================
-
-    if (extension === 'pdf') {
-
-        try {
-
-            // Cacher le code
-            zipCode.parentElement.classList.add('hidden');
-
-            // Cacher les images
-            zipPreview.classList.add('hidden');
-
-            // Afficher la zone PDF
-            zipPdfPreview.classList.remove('hidden');
-
-            // Afficher le PDF
-            await displayPDF(file);
-
-        } catch (error) {
-
-            console.error("Erreur PDF :", error);
-
-            zipCode.parentElement.classList.remove('hidden');
-
-            zipPdfPreview.classList.add('hidden');
-
-            zipCode.textContent =
-                "Impossible d'afficher ce PDF.\n\n" +
-                error.message;
-        }
-
-        return;
-    }
+        console.log("Fichier :", filename);
+        console.log("Extension détectée :", extension);
 
 
-    // ========================================
-    // Images
-    // ========================================
+        // ========================================
+        // PDF
+        // ========================================
 
-    const imageExtensions = [
-        'png',
-        'jpg',
-        'jpeg',
-        'gif',
-        'webp',
-        'svg'
-    ];
-
-
-    if (imageExtensions.includes(extension)) {
-
-        try {
-
-            const blob =
-                await file.async('blob');
-
-            const url =
-                URL.createObjectURL(blob);
-
-            const img =
-                document.createElement('img');
-
-            img.src = url;
-
-            img.alt = filename;
-
-            zipPreview.appendChild(img);
-
-            zipCode.parentElement.classList.add(
-                'hidden'
-            );
-
-            zipPreview.classList.remove(
-                'hidden'
-            );
-
-        } catch (error) {
-
-            console.error(error);
-
-            zipCode.textContent =
-                "Impossible d'afficher cette image.";
-
-        }
-
-        return;
-    }
-
-
-    // ========================================
-    // Fichiers texte
-    // ========================================
-
-    if (!textExtensions.includes(extension)) {
-
-        zipCode.textContent =
-            "Aperçu non disponible pour ce type de fichier.\n\n" +
-            "Fichier : " + filename;
-
-        return;
-    }
-
-
-    // ========================================
-    // Lecture texte
-    // ========================================
-
-    try {
-
-        const content =
-            await file.async('text');
-
-
-        const language =
-            getPrismLanguage(filename);
-
-
-        if (
-            language &&
-            Prism.languages[language]
-        ) {
+        if (extension === 'pdf') {
 
             try {
 
-                zipCode.className =
-                    `language-${language}`;
+                // Cacher le code
+                zipCode.parentElement.classList.add('hidden');
 
-                zipCode.innerHTML =
-                    Prism.highlight(
-                        content,
-                        Prism.languages[language],
-                        language
-                    );
+                // Cacher les images
+                zipPreview.classList.add('hidden');
+
+                // Afficher la zone PDF
+                zipPdfPreview.classList.remove('hidden');
+
+                // Afficher le PDF
+                await displayPDF(file);
 
             } catch (error) {
 
-                console.warn(
-                    "Erreur de coloration Prism :",
-                    error
+                console.error("Erreur PDF :", error);
+
+                zipCode.parentElement.classList.remove('hidden');
+
+                zipPdfPreview.classList.add('hidden');
+
+                zipCode.textContent =
+                    "Impossible d'afficher ce PDF.\n\n" +
+                    error.message;
+            }
+
+            return;
+        }
+
+
+        // ========================================
+        // Images
+        // ========================================
+
+        const imageExtensions = [
+            'png',
+            'jpg',
+            'jpeg',
+            'gif',
+            'webp',
+            'svg'
+        ];
+
+
+        if (imageExtensions.includes(extension)) {
+
+            try {
+
+                const blob =
+                    await file.async('blob');
+
+                const url =
+                    URL.createObjectURL(blob);
+
+                const img =
+                    document.createElement('img');
+
+                img.src = url;
+
+                img.alt = filename;
+
+                zipPreview.appendChild(img);
+
+                zipCode.parentElement.classList.add(
+                    'hidden'
                 );
 
-                // Si Prism plante, on affiche quand même le code
+                zipPreview.classList.remove(
+                    'hidden'
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                zipCode.textContent =
+                    "Impossible d'afficher cette image.";
+
+            }
+
+            return;
+        }
+
+
+        // ========================================
+        // Fichiers texte
+        // ========================================
+
+        if (!textExtensions.includes(extension)) {
+
+            zipCode.textContent =
+                "Aperçu non disponible pour ce type de fichier.\n\n" +
+                "Fichier : " + filename;
+
+            return;
+        }
+
+
+        // ========================================
+        // Lecture texte
+        // ========================================
+
+        try {
+
+            const content =
+                await file.async('text');
+
+
+            const language =
+                getPrismLanguage(filename);
+
+
+            if (
+                language &&
+                Prism.languages[language]
+            ) {
+
+                try {
+
+                    zipCode.className =
+                        `language-${language}`;
+
+                    zipCode.innerHTML =
+                        Prism.highlight(
+                            content,
+                            Prism.languages[language],
+                            language
+                        );
+
+                } catch (error) {
+
+                    console.warn(
+                        "Erreur de coloration Prism :",
+                        error
+                    );
+
+                    // Si Prism plante, on affiche quand même le code
+                    zipCode.className = '';
+
+                    zipCode.textContent =
+                        content;
+                }
+
+            } else {
+
                 zipCode.className = '';
 
                 zipCode.textContent =
                     content;
             }
 
-        } else {
+            copyCodeButton.classList.remove(
+                'hidden'
+            );
 
-            zipCode.className = '';
+
+        } catch (error) {
+
+            console.error(error);
 
             zipCode.textContent =
-                content;
+                "Impossible de lire ce fichier.";
+
         }
-
-        copyCodeButton.classList.remove(
-            'hidden'
-        );
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        zipCode.textContent =
-            "Impossible de lire ce fichier.";
 
     }
 
-}
-    
 
     // ========================================
     // Création de l'arborescence
@@ -1075,6 +1105,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
         }
-    );
+    ); */
 
 });
