@@ -326,53 +326,49 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getPrismLanguage(filename) {
 
-        const extension = getExtension(filename);
+    const extension = filename
+        .split('.')
+        .pop()
+        .toLowerCase();
 
+    const languages = {
 
-        const languages = {
+        // Web
+        html: 'markup',
+        htm: 'markup',
+        xml: 'markup',
+        svg: 'markup',
 
-            html: 'markup',
-            htm: 'markup',
+        css: 'css',
 
-            css: 'css',
+        js: 'javascript',
+        mjs: 'javascript',
+        jsx: 'javascript',
 
-            js: 'javascript',
-            jsx: 'javascript',
+        // Java / C
+        java: 'java',
+        c: 'c',
+        h: 'c',
+        cpp: 'cpp',
+        hpp: 'cpp',
 
-            ts: 'typescript',
-            tsx: 'typescript',
+        // Python
+        py: 'python',
 
-            java: 'java',
+        // PHP
+        php: 'php',
 
-            c: 'c',
-            h: 'c',
+        // Données
+        json: 'json',
 
-            cpp: 'cpp',
-            hpp: 'cpp',
+        // Texte
+        txt: null,
+        md: 'markdown'
 
-            py: 'python',
+    };
 
-            php: 'php',
-
-            json: 'json',
-
-            xml: 'markup',
-
-            md: 'markdown',
-
-            sql: 'sql',
-
-            sh: 'bash',
-
-            yml: 'yaml',
-            yaml: 'yaml'
-
-        };
-
-
-        return languages[extension] || null;
-
-    }
+    return languages[extension] ?? null;
+}
 
     //afficher PDF 
     async function displayPDF(file) {
