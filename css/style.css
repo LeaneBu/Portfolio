@@ -188,13 +188,12 @@ nav ul li a:hover {
 
 }
 
-#presentation>h2 {
+#presentation h2 {
     color: #333;
-    font-size: 2.5em;
-    margin-bottom: 20px;
     text-align: center;
-    width: 100%;
-    max-width: 300px;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    font-weight: bold;
 }
 
 .flip-container {
@@ -325,13 +324,6 @@ nav ul li a:hover {
     padding: 0 20px;
 }
 
-#competences h2 {
-    color: #333;
-    font-size: 2.5em;
-    margin-bottom: 30px;
-    font-weight: bold;
-}
-
 /* Styles pour l'article info (badges ronds 80x80) */
 article.info .competence-list {
     list-style: none;
@@ -410,14 +402,6 @@ article.softskills .competence-icon {
 
 #experiences {
     margin-top: 40px auto;
-}
-
-#experiences h2 {
-    color: #333;
-    text-align: center;
-    font-size: 2.5em;
-    margin-bottom: 30px;
-    font-weight: bold;
 }
 
 
