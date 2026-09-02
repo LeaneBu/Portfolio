@@ -27,7 +27,6 @@ async function openPdfViewer(url, filename = 'Document PDF') {
             const canvas = document.createElement('canvas');
             const context = canvas.getContext('2d');
 
-            // Largeur disponible dans la fenêtre
             const availableWidth = Math.min(
                 window.innerWidth - 40,
                 1200
@@ -35,7 +34,6 @@ async function openPdfViewer(url, filename = 'Document PDF') {
 
             const viewport = page.getViewport({ scale: 1 });
 
-            // Adapter le PDF à la largeur disponible
             const scale = availableWidth / viewport.width;
 
             const scaledViewport = page.getViewport({

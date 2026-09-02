@@ -87,7 +87,6 @@ async function loadLibraries() {
         'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
 
-    console.log('Toutes les librairies sont chargées !');
 }
 
 

@@ -16,11 +16,9 @@ const mediaClose = mediaModal.querySelector('.close-modal');
 function closeMediaViewer() {
     mediaModal.classList.add('hidden');
 
-    // Reset image
     mediaImage.src = '';
     mediaImage.classList.remove('hidden');
 
-    // Reset vidéo
     mediaVideo.pause();
     mediaVideo.currentTime = 0;
     mediaVideo.classList.add('hidden');
@@ -34,17 +32,14 @@ function closeMediaViewer() {
 
 function openImageViewer(src) {
 
-    // Cacher la vidéo
     mediaVideo.pause();
     mediaVideo.currentTime = 0;
     mediaVideo.classList.add('hidden');
     mediaVideoSource.src = '';
 
-    // Afficher l'image
     mediaImage.src = src;
     mediaImage.classList.remove('hidden');
 
-    // Ouvrir la modale
     mediaModal.classList.remove('hidden');
 }
 
@@ -55,18 +50,14 @@ function openImageViewer(src) {
 
 function openVideoViewer(src) {
 
-    // Cacher l'image
     mediaImage.classList.add('hidden');
     mediaImage.src = '';
 
-    // Charger la vidéo
     mediaVideoSource.src = src;
     mediaVideo.load();
 
-    // Afficher la vidéo
     mediaVideo.classList.remove('hidden');
 
-    // Ouvrir la modale
     mediaModal.classList.remove('hidden');
 }
 

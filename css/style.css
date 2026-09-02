@@ -17,7 +17,7 @@ header {
     color: #fff;
     padding: 20px 0;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
@@ -98,7 +98,7 @@ nav ul li a:hover {
 .card {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     width: 600px;
     height: 500px;
@@ -133,7 +133,7 @@ nav ul li a:hover {
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .card-img {
@@ -188,7 +188,7 @@ nav ul li a:hover {
 
 }
 
-#presentation > h2 {
+#presentation>h2 {
     color: #333;
     font-size: 2em;
     margin-bottom: 20px;
@@ -213,7 +213,8 @@ nav ul li a:hover {
     height: 100%;
 }
 
-.front, .back {
+.front,
+.back {
     backface-visibility: hidden;
     position: absolute;
     top: 0;
@@ -297,12 +298,12 @@ nav ul li a:hover {
     border: 2px solid #ddd;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .diploma-card:hover {
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     transform: scale(1.03);
 }
 
@@ -318,7 +319,8 @@ nav ul li a:hover {
 /* Compétences Section */
 #competences {
     text-align: center;
-    max-width: 900px; /* Augmente la largeur maximale pour les deux lignes */
+    max-width: 900px;
+    /* Augmente la largeur maximale pour les deux lignes */
     margin: 40px auto;
     padding: 0 20px;
 }
@@ -346,18 +348,18 @@ article.info .competence-list li {
     align-items: center;
     justify-content: center;
     width: 80px;
-    height: 80px; 
+    height: 80px;
 }
 
 article.info .competence-icon {
     font-size: 1em;
-    width: 80px; 
-    height: 80px; 
+    width: 80px;
+    height: 80px;
     display: flex;
     align-items: center;
-    justify-content: center; 
-    color: #333; 
-    border-radius: 50%; 
+    justify-content: center;
+    color: #333;
+    border-radius: 50%;
     text-align: center;
     line-height: 1.2;
     font-weight: bold;
@@ -369,20 +371,23 @@ article.info .competence-icon {
 article.softskills .competence-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* centre les badges sur chaque ligne */
+    justify-content: center;
+    /* centre les badges sur chaque ligne */
     gap: 20px;
     max-width: 900px;
     margin: 0 auto;
-  }
-  
-  article.softskills .competence-list li {
-    flex: 0 0 calc((100% / 3) - 13.33px); /* 3 colonnes avec gaps */
+}
+
+article.softskills .competence-list li {
+    flex: 0 0 calc((100% / 3) - 13.33px);
+    /* 3 colonnes avec gaps */
     list-style: none;
     display: flex;
-    justify-content: center; /* centre le contenu dans le li */
-  }
-  
-  article.softskills .competence-icon {
+    justify-content: center;
+    /* centre le contenu dans le li */
+}
+
+article.softskills .competence-icon {
     width: 100%;
     min-height: 60px;
     max-width: 280px;
@@ -399,11 +404,13 @@ article.softskills .competence-list {
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
-  }
+}
 
 
 /* Réalisations Page */
-#year-1, #year-2, #year-3 {
+#year-1,
+#year-2,
+#year-3 {
     margin: 40px auto;
     max-width: 1200px;
     padding: 0 20px;
@@ -432,8 +439,8 @@ main h1 {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    align-items: flex-start; 
-    min-height: 200px; 
+    align-items: flex-start;
+    min-height: 200px;
     position: relative;
 }
 
@@ -503,9 +510,9 @@ main h1 {
 }
 
 .carousel-images img {
-    width: 300px; 
+    width: 300px;
     height: 250px;
-    object-fit: contain; 
+    object-fit: contain;
     flex-shrink: 0;
 }
 
@@ -549,11 +556,13 @@ main h1 {
 }
 
 .carousel-button.prev::before {
-    transform: rotate(135deg); /* Rotation pour la flèche précédente */
+    transform: rotate(135deg);
+    /* Rotation pour la flèche précédente */
 }
 
 .carousel-button.next::before {
-    transform: rotate(-45deg); /* Rotation pour la flèche suivante */
+    transform: rotate(-45deg);
+    /* Rotation pour la flèche suivante */
 }
 
 .project-button {
@@ -561,8 +570,10 @@ main h1 {
     margin-top: 20px;
     padding: 10px 20px;
     border-radius: 5px;
-    background-color: #61adff; /* Couleur de fond du bouton */
-    color: #ffffff; /* Couleur du texte */
+    background-color: #61adff;
+    /* Couleur de fond du bouton */
+    color: #ffffff;
+    /* Couleur du texte */
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
@@ -613,7 +624,8 @@ main h1 {
 }
 
 /* Contact Page */
-#contact-info, #contact-form {
+#contact-info,
+#contact-form {
     margin: 40px auto;
     width: 100%;
     max-width: 800px;
@@ -701,7 +713,8 @@ label {
     color: #333;
 }
 
-input, textarea {
+input,
+textarea {
     width: 100%;
     max-width: 780px;
     padding: 10px;
@@ -781,7 +794,7 @@ input, textarea {
     width: 100vw;
     height: 100vh;
     overflow: auto;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     justify-content: center;
     align-items: center;
 }
@@ -822,13 +835,13 @@ input, textarea {
     color: #33323244;
     transition: color 0.2s ease, transform 0.2s ease;
     margin-left: 45%;
-  }
-  
-  .details-toggle:hover {
+}
+
+.details-toggle:hover {
     color: #4CAF50;
     transform: scale(1.1);
-  }
-  
+}
+
 /* ========================================
    LECTEUR ZIP
    ======================================== */
@@ -1235,7 +1248,7 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
-    box-shadow: 0 -4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
 }
 
 footer p {
@@ -1257,12 +1270,14 @@ footer p {
         font-size: 1em;
     }
 
-    #contact-info, #contact-form {
+    #contact-info,
+    #contact-form {
         width: 90%;
         padding: 15px;
     }
 
-    input, textarea {
+    input,
+    textarea {
         width: 100%;
     }
 }
@@ -1433,4 +1448,3 @@ footer p {
 
     padding: 40px;
 }
-
