@@ -67,7 +67,7 @@ nav ul li a:hover {
     border-color: #ff6f61;
 }
 
-/* Accueil */
+/* ===== Accueil Page ===== */
 #accueil {
     flex: 1;
     padding: 40px 20px;
@@ -177,7 +177,7 @@ nav ul li a:hover {
 }
 
 
-/* Présentation Page */
+/* ===== PRESENTATION PAGE ===== */
 
 #presentation {
     display: flex;
@@ -406,8 +406,149 @@ article.softskills .competence-icon {
     hyphens: auto;
 }
 
+/* expériences section */
 
-/* Réalisations Page */
+#experiences {
+    margin-top: 80px;
+}
+
+#experiences h2 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.experience-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+    gap: 30px;
+
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.experience-card {
+    perspective: 1000px;
+}
+
+.experience-poster {
+    position: relative;
+    min-height: 500px;
+    padding: 25px;
+    border-radius: 18px;
+    background: linear-gradient(
+        145deg,
+        #fff8f3,
+        #f5f0ff
+    );
+    border: 2px solid #ddd6e8;
+    box-shadow:
+        8px 8px 0 #e5ddea,
+        0 10px 25px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.experience-poster:hover {
+    transform: translateY(-8px) rotate(-1deg);
+    box-shadow:
+        12px 14px 0 #e5ddea,
+        0 18px 30px rgba(0, 0, 0, 0.12);
+}
+
+.experience-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.experience-label {
+    opacity: 0.6;
+}
+
+.experience-date {
+    opacity: 0.6;
+}
+
+.experience-logo {
+    width: 120px;
+    height: 120px;
+    margin: 35px auto 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 3px solid #ddd6e8;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.experience-logo span {
+    font-size: 0.8rem;
+    opacity: 0.5;
+}
+
+.experience-main {
+    text-align: center;
+}
+
+.experience-main h3 {
+    margin: 0;
+    font-size: 1.35rem;
+}
+
+.experience-main h4 {
+    margin-top: 8px;
+    font-weight: normal;
+    opacity: 0.7;
+}
+
+.experience-description {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed #cfc5d8;
+    line-height: 1.6;
+}
+
+.experience-tags {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.experience-tags span {
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: white;
+    border: 1px solid #ddd6e8;
+    font-size: 0.8rem;
+}
+
+/* res */
+@media (max-width: 900px) {
+    .experience-list {
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+    }
+}
+@media (max-width: 600px) {
+    .experience-list {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+    .experience-poster {
+        min-height: 450px;
+    }
+}
+
+/* ===== REALISATIONS PAGE ===== */
 #year-1,
 #year-2,
 #year-3 {
@@ -623,7 +764,480 @@ main h1 {
     color: #777;
 }
 
-/* Contact Page */
+/* Popup image */
+.image-modal {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.image-modal img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+}
+
+.image-modal .close-modal {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#modal-video {
+    width: 70vw;
+    max-height: 80vh;
+    border-radius: 10px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.modal {
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.details-toggle {
+    width: 1.5em;
+    height: 1.5em;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #33323244;
+    transition: color 0.2s ease, transform 0.2s ease;
+    margin-left: 45%;
+}
+
+.details-toggle:hover {
+    color: #4CAF50;
+    transform: scale(1.1);
+}
+
+/* LECTEUR ZIP */
+.zip-modal-content {
+    background-color: white;
+    width: 90%;
+    max-width: 1200px;
+    height: 85vh;
+    border-radius: 10px;
+    position: relative;
+    padding: 25px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Titre */
+.zip-modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Zone principale de la pop up */
+.zip-viewer {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    gap: 15px;
+}
+
+/* ARBORESCENCE */
+.zip-file-list {
+    width: 280px;
+    min-width: 220px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow-y: auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.zip-file-list-header {
+    padding: 5px 8px 10px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 5px;
+}
+
+.zip-file-list h3 {
+    margin: 0;
+}
+
+/* Chaque élément */
+.zip-tree-item {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    border: none;
+    background: none;
+    padding: 6px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.zip-tree-item:hover {
+    background-color: #eeeeee;
+}
+
+/* Dossier */
+.zip-folder {
+    font-weight: bold;
+}
+
+
+/* Icône */
+.zip-folder::before {
+    content: "📁 ";
+
+}
+.zip-folder.open::before {
+    content: "📂 ";
+}
+.zip-file::before {
+    content: "📄 ";
+}
+
+/* Indentation */
+.zip-tree-children {
+    margin-left: 18px;
+}
+
+
+/* CONTENU DU FICHIER */
+.zip-file-content {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Header */
+.zip-code-header {
+    min-height: 45px;
+    padding: 0 15px;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#zip-file-name {
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Code */
+#zip-code {
+    flex: 1;
+    margin: 0;
+    padding: 20px;
+    overflow: auto;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+#zip-code code {
+    font-family: "Courier New", monospace;
+}
+
+/* Images */
+#zip-preview {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow: auto;
+}
+
+#zip-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+/* PDF */
+#zip-pdf-preview {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    background-color: #e5e5e5;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#zip-pdf-pages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Chaque page pdf */
+.pdf-page {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* tél */
+@media (max-width: 700px) {
+    .zip-modal-content {
+        width: 95%;
+        height: 92vh;
+        padding: 15px;
+    }
+    .zip-modal-content h2 {
+        margin-bottom: 12px;
+        font-size: 20px;
+    }
+    .zip-viewer {
+        flex-direction: column;
+    }
+    .zip-file-list {
+        width: 100%;
+        min-width: 0;
+        height: 180px;
+        flex-shrink: 0;
+    }
+    .zip-file-content {
+        min-height: 0;
+    }
+    #zip-code {
+        padding: 15px;
+        font-size: 12px;
+    }
+    .zip-tree-item {
+        padding: 5px 8px;
+    }
+    #zip-pdf-preview {
+        padding: 10px;
+    }
+    #zip-pdf-pages {
+        gap: 10px;
+    }
+
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+    margin: 0;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .flip-container {
+        width: 100%;
+        height: 400px;
+    }
+    #formation p,
+    .diploma-card p,
+    #contact-info p,
+    #contact-form p {
+        font-size: 1em;
+    }
+    #contact-info,
+    #contact-form {
+        width: 90%;
+        padding: 15px;
+    }
+    input,
+    textarea {
+        width: 100%;
+    }
+}
+
+/* PDF MODAL */
+#pdf-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
+#pdf-modal.hidden {
+    display: none;
+}
+
+
+/* Conteneur principal */
+.pdf-modal-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    display: flex;
+    flex-direction: column;
+    background: #222;
+    overflow: hidden;
+}
+
+
+/* Header */
+.pdf-header {
+    flex: 0 0 auto;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 60px 0 20px;
+    background: #181818;
+    color: white;
+    box-sizing: border-box;
+}
+
+#pdf-file-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* Bouton fermer */
+.pdf-close {
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    z-index: 10;
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+
+/* Zone PDF */
+.pdf-viewer {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #333;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+/* Pages pdf */
+#pdf-pages {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.pdf-page {
+    width: fit-content;
+    max-width: 100%;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    line-height: 0;
+}
+
+.pdf-page canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* Messages */
+
+.pdf-loading,
+.pdf-error {
+    color: white;
+    text-align: center;
+    padding: 40px;
+}
+
+
+/* ===== CONTACT PAGE ===== */
 #contact-info,
 #contact-form {
     margin: 40px auto;
@@ -635,8 +1249,6 @@ main h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
 }
-
-
 
 .contact-details {
     display: flex;
@@ -746,705 +1358,3 @@ textarea {
 }
 
 
-/* Popup image */
-.image-modal {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
-}
-
-.image-modal img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 10px;
-}
-
-.image-modal .close-modal {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-#modal-video {
-    width: 70vw;
-    max-height: 80vh;
-    border-radius: 10px;
-}
-
-.hidden {
-    display: none !important;
-}
-
-.modal {
-    display: flex;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.6);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal.hidden {
-    display: none;
-}
-
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 600px;
-    position: relative;
-}
-
-.close-modal {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.details-toggle {
-    width: 1.5em;
-    height: 1.5em;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    color: #33323244;
-    transition: color 0.2s ease, transform 0.2s ease;
-    margin-left: 45%;
-}
-
-.details-toggle:hover {
-    color: #4CAF50;
-    transform: scale(1.1);
-}
-
-/* ========================================
-   LECTEUR ZIP
-   ======================================== */
-
-.zip-modal-content {
-    background-color: white;
-
-    width: 90%;
-    max-width: 1200px;
-    height: 85vh;
-
-    border-radius: 10px;
-
-    position: relative;
-
-    padding: 25px;
-
-    box-sizing: border-box;
-
-    display: flex;
-    flex-direction: column;
-}
-
-
-/* Titre */
-
-.zip-modal-content h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-
-
-/* ========================================
-   Zone principale
-   ======================================== */
-
-.zip-viewer {
-    display: flex;
-
-    flex: 1;
-    min-height: 0;
-
-    gap: 15px;
-}
-
-
-/* ========================================
-   ARBORESCENCE
-   ======================================== */
-
-.zip-file-list {
-    width: 280px;
-    min-width: 220px;
-
-    border: 1px solid #ddd;
-    border-radius: 8px;
-
-    overflow-y: auto;
-
-    padding: 10px;
-
-    box-sizing: border-box;
-}
-
-
-.zip-file-list-header {
-    padding: 5px 8px 10px;
-
-    border-bottom: 1px solid #ddd;
-
-    margin-bottom: 5px;
-}
-
-
-.zip-file-list h3 {
-    margin: 0;
-}
-
-
-/* Chaque élément */
-
-.zip-tree-item {
-    width: 100%;
-
-    box-sizing: border-box;
-
-    font-family: inherit;
-
-    border: none;
-    background: none;
-
-    padding: 6px 8px;
-
-    border-radius: 5px;
-
-    cursor: pointer;
-
-    text-align: left;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-
-.zip-tree-item:hover {
-    background-color: #eeeeee;
-}
-
-
-/* Dossier */
-
-.zip-folder {
-    font-weight: bold;
-}
-
-
-/* Icône */
-
-.zip-folder::before {
-    content: "📁 ";
-
-}
-
-
-.zip-folder.open::before {
-    content: "📂 ";
-}
-
-
-.zip-file::before {
-    content: "📄 ";
-}
-
-
-/* Indentation */
-
-.zip-tree-children {
-    margin-left: 18px;
-}
-
-
-/* ========================================
-   CONTENU DU FICHIER
-   ======================================== */
-
-.zip-file-content {
-    flex: 1;
-
-    min-width: 0;
-    min-height: 0;
-
-    border: 1px solid #ddd;
-
-    border-radius: 8px;
-
-    overflow: hidden;
-
-    display: flex;
-    flex-direction: column;
-}
-
-
-/* Header */
-
-.zip-code-header {
-    min-height: 45px;
-
-    padding: 0 15px;
-
-    background-color: #f2f2f2;
-
-    border-bottom: 1px solid #ddd;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 10px;
-}
-
-
-#zip-file-name {
-    font-weight: bold;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
-}
-
-
-/* ========================================
-   Code
-   ======================================== */
-
-#zip-code {
-    flex: 1;
-
-    margin: 0;
-
-    padding: 20px;
-
-    overflow: auto;
-
-    font-size: 14px;
-
-    line-height: 1.5;
-
-    text-align: left;
-}
-
-
-#zip-code code {
-    font-family: "Courier New", monospace;
-}
-
-
-/* ========================================
-   Bouton copier
-   ======================================== */
-
-.copy-code {
-    border: none;
-
-    border-radius: 5px;
-
-    padding: 6px 10px;
-
-    cursor: pointer;
-
-    background-color: #333;
-
-    color: white;
-
-    transition: opacity 0.2s ease;
-}
-
-
-.copy-code:hover {
-    opacity: 0.8;
-}
-
-
-/* ========================================
-   Images
-   ======================================== */
-
-#zip-preview {
-    flex: 1;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px;
-
-    overflow: auto;
-}
-
-
-#zip-preview img {
-    max-width: 100%;
-    max-height: 100%;
-
-    object-fit: contain;
-
-    border-radius: 5px;
-}
-
-/* ========================================
-   PDF
-   ======================================== */
-
-#zip-pdf-preview {
-    flex: 1;
-
-    min-height: 0;
-
-    overflow-y: auto;
-
-    background-color: #e5e5e5;
-
-    padding: 20px;
-
-    box-sizing: border-box;
-}
-
-
-#zip-pdf-pages {
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 20px;
-}
-
-
-/* Chaque page */
-
-.pdf-page {
-    display: block;
-
-    max-width: 100%;
-
-    height: auto;
-
-    background-color: white;
-
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-
-
-/* ========================================
-   MOBILE
-   ======================================== */
-
-@media (max-width: 700px) {
-
-    .zip-modal-content {
-
-        width: 95%;
-        height: 92vh;
-
-        padding: 15px;
-
-    }
-
-
-    .zip-modal-content h2 {
-
-        margin-bottom: 12px;
-
-        font-size: 20px;
-
-    }
-
-
-    .zip-viewer {
-
-        flex-direction: column;
-
-    }
-
-
-    .zip-file-list {
-
-        width: 100%;
-
-        min-width: 0;
-
-        height: 180px;
-
-        flex-shrink: 0;
-
-    }
-
-
-    .zip-file-content {
-
-        min-height: 0;
-
-    }
-
-
-    #zip-code {
-
-        padding: 15px;
-
-        font-size: 12px;
-
-    }
-
-
-    .zip-tree-item {
-
-        padding: 5px 8px;
-
-    }
-
-    #zip-pdf-preview {
-        padding: 10px;
-    }
-
-    #zip-pdf-pages {
-        gap: 10px;
-    }
-
-}
-
-/* Footer styles */
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 15px 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
-}
-
-footer p {
-    margin: 0;
-}
-
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .flip-container {
-        width: 100%;
-        height: 400px;
-    }
-
-    #formation p,
-    .diploma-card p,
-    #contact-info p,
-    #contact-form p {
-        font-size: 1em;
-    }
-
-    #contact-info,
-    #contact-form {
-        width: 90%;
-        padding: 15px;
-    }
-
-    input,
-    textarea {
-        width: 100%;
-    }
-}
-
-/* ========================================
-   PDF MODAL
-======================================== */
-
-#pdf-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-
-    width: 100vw;
-    height: 100vh;
-
-    background: rgba(0, 0, 0, 0.85);
-
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
-}
-
-#pdf-modal.hidden {
-    display: none;
-}
-
-
-/* ========================================
-   CONTENEUR PRINCIPAL
-======================================== */
-
-.pdf-modal-content {
-    position: relative;
-
-    width: 100%;
-    height: 100%;
-
-    max-width: none;
-    max-height: none;
-
-    display: flex;
-    flex-direction: column;
-
-    background: #222;
-
-    overflow: hidden;
-}
-
-
-/* ========================================
-   HEADER
-======================================== */
-
-.pdf-header {
-    flex: 0 0 auto;
-
-    height: 50px;
-
-    display: flex;
-    align-items: center;
-
-    padding: 0 60px 0 20px;
-
-    background: #181818;
-
-    color: white;
-
-    box-sizing: border-box;
-}
-
-#pdf-file-name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-
-/* ========================================
-   BOUTON FERMER
-======================================== */
-
-.pdf-close {
-    position: absolute;
-
-    top: 8px;
-    right: 15px;
-
-    z-index: 10;
-
-    width: 35px;
-    height: 35px;
-
-    border: none;
-    background: transparent;
-
-    color: white;
-
-    font-size: 30px;
-    line-height: 1;
-
-    cursor: pointer;
-}
-
-
-/* ========================================
-   ZONE PDF
-======================================== */
-
-.pdf-viewer {
-    flex: 1;
-
-    width: 100%;
-    min-height: 0;
-
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    background: #333;
-
-    padding: 20px;
-
-    box-sizing: border-box;
-}
-
-
-/* ========================================
-   PAGES
-======================================== */
-
-#pdf-pages {
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    gap: 20px;
-}
-
-.pdf-page {
-    width: fit-content;
-    max-width: 100%;
-
-    background: white;
-
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-
-    line-height: 0;
-}
-
-.pdf-page canvas {
-    display: block;
-
-    max-width: 100%;
-    height: auto;
-}
-
-
-/* ========================================
-   MESSAGES
-======================================== */
-
-.pdf-loading,
-.pdf-error {
-    color: white;
-    text-align: center;
-
-    padding: 40px;
-}

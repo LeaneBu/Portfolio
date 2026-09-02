@@ -20,9 +20,6 @@ const zipCode =
 const zipPreview =
     document.getElementById('zip-preview');
 
-const copyCodeButton =
-    document.getElementById('copy-code');
-
 const zipPdfPreview =
     document.getElementById('zip-pdf-preview');
 
@@ -212,8 +209,6 @@ async function openZipFile(file, filename) {
 
     zipCode.parentElement.classList.remove('hidden');
 
-    copyCodeButton.classList.add('hidden');
-
     zipCode.className = '';
     zipCode.textContent = 'Chargement...';
 
@@ -380,11 +375,6 @@ async function openZipFile(file, filename) {
             zipCode.className = '';
             zipCode.textContent = content;
         }
-
-
-        copyCodeButton.classList.remove(
-            'hidden'
-        );
 
     } catch (error) {
 
@@ -648,11 +638,6 @@ document
                     'hidden'
                 );
 
-                copyCodeButton.classList.add(
-                    'hidden'
-                );
-
-
                 zipModal.classList.remove(
                     'hidden'
                 );
@@ -718,47 +703,6 @@ document
 
 
 // ========================================
-// COPIER LE CODE
-// ========================================
-
-copyCodeButton.addEventListener(
-    'click',
-    async () => {
-
-        try {
-
-            await navigator.clipboard.writeText(
-                zipCode.textContent
-            );
-
-
-            const originalText =
-                copyCodeButton.textContent;
-
-            copyCodeButton.textContent =
-                'Copié !';
-
-
-            setTimeout(() => {
-
-                copyCodeButton.textContent =
-                    originalText;
-
-            }, 1500);
-
-
-        } catch (error) {
-
-            console.error(
-                'Impossible de copier.',
-                error
-            );
-        }
-    }
-);
-
-
-// ========================================
 // FERMER
 // ========================================
 
@@ -782,10 +726,6 @@ function closeZip() {
     zipPdfPreview.classList.add('hidden');
 
     zipCode.parentElement.classList.remove(
-        'hidden'
-    );
-
-    copyCodeButton.classList.add(
         'hidden'
     );
 }
