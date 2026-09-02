@@ -611,15 +611,31 @@ document.addEventListener('DOMContentLoaded', function () {
             Prism.languages[language]
         ) {
 
-            zipCode.className =
-                `language-${language}`;
+            try {
 
-            zipCode.innerHTML =
-                Prism.highlight(
-                    content,
-                    Prism.languages[language],
-                    language
+                zipCode.className =
+                    `language-${language}`;
+
+                zipCode.innerHTML =
+                    Prism.highlight(
+                        content,
+                        Prism.languages[language],
+                        language
+                    );
+
+            } catch (error) {
+
+                console.warn(
+                    "Erreur de coloration Prism :",
+                    error
                 );
+
+                // Si Prism plante, on affiche quand même le code
+                zipCode.className = '';
+
+                zipCode.textContent =
+                    content;
+            }
 
         } else {
 
@@ -627,9 +643,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             zipCode.textContent =
                 content;
-
         }
-
 
         copyCodeButton.classList.remove(
             'hidden'
