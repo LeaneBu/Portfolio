@@ -1,116 +1,68 @@
 // ========================================
-// LECTEUR PDF
+// PDF VIEWER
 // ========================================
 
 const pdfModal = document.getElementById('pdf-modal');
 const pdfPages = document.getElementById('pdf-pages');
 const pdfFileName = document.getElementById('pdf-file-name');
-
 const pdfClose = pdfModal.querySelector('.pdf-close');
 
-
-// ========================================
-// OUVERTURE D'UN PDF
-// ========================================
-
-async function openPDF(url) {
-
-    pdfPages.innerHTML = '';
-
-    pdfFileName.textContent =
-        decodeURIComponent(
-            url.split('/').pop()
-        );
-
+async function openPdfViewer(url, filename = 'Document PDF') {
     pdfModal.classList.remove('hidden');
 
+    pdfFileName.textContent = filename;
+    pdfPages.innerHTML = '<p class="pdf-loading">Chargement du PDF...</p>';
+
     try {
+        const pdf = await pdfjsLib.getDocument(url).promise;
 
-        const response = await fetch(url);
+        pdfPages.innerHTML = '';
 
-        if (!response.ok) {
-            throw new Error(
-                `Impossible de charger le PDF (${response.status})`
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+            const page = await pdf.getPage(pageNumber);
+
+            const pageContainer = document.createElement('div');
+            pageContainer.className = 'pdf-page';
+
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+
+            // Largeur disponible dans la fenêtre
+            const availableWidth = Math.min(
+                window.innerWidth - 40,
+                1200
             );
-        }
 
-        const arrayBuffer =
-            await response.arrayBuffer();
+            const viewport = page.getViewport({ scale: 1 });
 
-        const pdf =
-            await pdfjsLib.getDocument({
-                data: arrayBuffer
-            }).promise;
+            // Adapter le PDF à la largeur disponible
+            const scale = availableWidth / viewport.width;
 
+            const scaledViewport = page.getViewport({
+                scale: scale
+            });
 
-        // Afficher toutes les pages
+            canvas.width = scaledViewport.width;
+            canvas.height = scaledViewport.height;
 
-        for (
-            let pageNumber = 1;
-            pageNumber <= pdf.numPages;
-            pageNumber++
-        ) {
+            canvas.style.width = `${scaledViewport.width}px`;
+            canvas.style.height = `${scaledViewport.height}px`;
 
-            const page =
-                await pdf.getPage(pageNumber);
-
-            const viewport =
-                page.getViewport({
-                    scale: 1
-                });
-
-
-            const containerWidth =
-                pdfPages.clientWidth - 40;
-
-            const scale =
-                Math.min(
-                    containerWidth / viewport.width,
-                    1.5
-                );
-
-
-            const scaledViewport =
-                page.getViewport({
-                    scale: scale
-                });
-
-
-            const canvas =
-                document.createElement('canvas');
-
-            canvas.className = 'pdf-page';
-
-            canvas.width =
-                scaledViewport.width;
-
-            canvas.height =
-                scaledViewport.height;
-
-
-            const context =
-                canvas.getContext('2d');
-
+            pageContainer.appendChild(canvas);
+            pdfPages.appendChild(pageContainer);
 
             await page.render({
                 canvasContext: context,
                 viewport: scaledViewport
             }).promise;
-
-
-            pdfPages.appendChild(canvas);
         }
 
     } catch (error) {
-
-        console.error(
-            'Erreur lors du chargement du PDF :',
-            error
-        );
+        console.error('Erreur lors du chargement du PDF :', error);
 
         pdfPages.innerHTML = `
             <p class="pdf-error">
-                Impossible d'afficher ce PDF.
+                Impossible de charger ce PDF.
             </p>
         `;
     }
@@ -118,19 +70,18 @@ async function openPDF(url) {
 
 
 // ========================================
-// BOUTONS "OPEN PDF"
+// BOUTONS PDF
 // ========================================
 
-document.querySelectorAll('.open-pdf').forEach(link => {
-
-    link.addEventListener('click', event => {
-
+document.querySelectorAll('.open-pdf').forEach(button => {
+    button.addEventListener('click', event => {
         event.preventDefault();
 
-        openPDF(link.href);
+        const url = button.href;
+        const filename = url.split('/').pop();
 
+        openPdfViewer(url, filename);
     });
-
 });
 
 
@@ -138,30 +89,15 @@ document.querySelectorAll('.open-pdf').forEach(link => {
 // FERMETURE
 // ========================================
 
-function closePDF() {
-
+function closePdfViewer() {
     pdfModal.classList.add('hidden');
-
     pdfPages.innerHTML = '';
-
-    pdfFileName.textContent =
-        'Document PDF';
 }
 
+pdfClose.addEventListener('click', closePdfViewer);
 
-pdfClose.addEventListener(
-    'click',
-    closePDF
-);
-
-
-pdfModal.addEventListener(
-    'click',
-    event => {
-
-        if (event.target === pdfModal) {
-            closePDF();
-        }
-
+pdfModal.addEventListener('click', event => {
+    if (event.target === pdfModal) {
+        closePdfViewer();
     }
-);
+});
